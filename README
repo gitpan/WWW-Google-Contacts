@@ -1,0 +1,115 @@
+NAME
+    WWW::Google::Contacts - Google Contacts Data API
+
+VERSION
+    version 0.01_01
+
+SYNOPSIS
+        use WWW::Google::Contacts;
+
+        my $gcontacts = WWW::Google::Contacts->new();
+        $gcontacts->login('fayland@gmail.com', 'pass') or die 'login failed';
+    
+        # create contact
+        my $status = $gcontacts->create_contact( {
+            givenName => 'FayTestG',
+            familyName => 'FayTestF',
+            fullName   => 'Fayland Lam',
+            Notes     => 'just a note',
+            primaryMail => 'primary@example.com',
+            displayName => 'FayTest Dis',
+            secondaryMail => 'secndary@test.com',
+        } );
+        print "Create OK" if $status;
+    
+        my @contacts = $gcontacts->get_contacts;
+        foreach my $contact (@contacts) {
+            print "$contact->{name}: " . join(', ', @{ $contact->{emails} }) . "\n";
+            $gcontacts->delete_contact($contact->{id}) if $contact->{name} eq 'Test';
+        }
+
+DESCRIPTION
+    This module implements 'Google Contacts Data API' according
+    <http://code.google.com/apis/contacts/docs/3.0/developers_guide_protocol
+    .html>
+
+  METHODS
+    *   new/login
+
+            my $gcontacts = WWW::Google::Contacts->new();
+            $gcontacts->login('fayland@gmail.com', 'pass') or die 'login failed';
+
+    *   create_contact
+
+            $gcontacts->create_contact( {
+                givenName => 'FayTestG',
+                familyName => 'FayTestF',
+                fullName   => 'Fayland Lam',
+                Notes     => 'just a note',
+                primaryMail => 'primary@example.com',
+                displayName => 'FayTest Dis',
+                secondaryMail => 'secndary@test.com',
+            } );
+
+        return 1 if created
+
+    *   get_contacts
+
+            my @contacts = $gcontacts->get_contacts;
+            my @contacts = $gcontacts->get_contacts( {
+                group => 'thin', # default to 'full'
+            } )
+            my @contacts = $gcontacts->get_contacts( {
+                updated-min => '2007-03-16T00:00:00',
+                start-index => 10,
+                max-results => 99, # default as 9999
+            } );
+
+        get contacts from this account.
+
+        "group" refers
+        <http://code.google.com/apis/contacts/docs/2.0/reference.html#Projec
+        tions>
+
+        "start-index", "max_results" etc refer
+        <http://code.google.com/apis/contacts/docs/2.0/reference.html#Parame
+        ters>
+
+    *   update_contact
+
+        TODO
+
+    *   delete_contact($id)
+
+            my $status = $gcontacts->delete_contact('http://www.google.com/m8/feeds/contacts/account%40gmail.com/base/1');
+
+        The id is from "get_contacts".
+
+    *   create_group
+
+            my $status = $gcontacts->create_group( { title => 'Test Group' } );
+
+    *   get_groups
+
+            my @groups = $gcontacts->get_groups;
+            my @groups = $gcontacts->get_groups( {
+                updated-min => '2007-03-16T00:00:00',
+                start-index => 10,
+                max-results => 99, # default as 9999
+            } );
+
+        Get all groups.
+
+    *   delete_group
+
+            my $status = $gcontacts->delete_contact('http://www.google.com/m8/feeds/groups/account%40gmail.com/full/2');
+
+AUTHOR
+      Fayland Lam <fayland@gmail.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2009 by Fayland Lam.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as perl itself.
+

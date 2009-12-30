@@ -1,0 +1,16 @@
+---
+abstract: 'Google Contacts Data API'
+author:
+  - 'Fayland Lam <fayland@gmail.com>'
+generated_by: 'Dist::Zilla version 1.093400'
+license: perl
+meta-spec:
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: WWW-Google-Contacts
+requires:
+  LWP::UserAgent: 0
+  Net::Google::AuthSub: 0
+resources:
+  repository: http://github.com/fayland/www-google-contacts
+version: 0.01_01
