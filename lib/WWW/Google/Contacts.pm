@@ -1,5 +1,5 @@
 package WWW::Google::Contacts;
-our $VERSION = '0.01_01';
+our $VERSION = '0.01_02';
 
 # ABSTRACT: Google Contacts Data API
 
@@ -21,7 +21,9 @@ sub new {
         $args->{ua} = LWP::UserAgent->new(%$ua_args);
     }
     $args->{authsub} ||= Net::Google::AuthSub->new( service => 'cp' );
-    $args->{xmls} ||= XML::Simple->new();
+    $args->{xmls}    ||= XML::Simple->new();
+    $args->{debug}   ||= 0;
+    $args->{'GData-Version'} = 3.0;
 
     bless $args, $class;
 }
@@ -86,11 +88,14 @@ sub create_contact {
         },
     };
     my $xml = $self->{xmls}->XMLout( $data, KeepRoot => 1 );
+    print STDERR $xml . "\n" if $self->{debug};
 
     my %headers = $self->{authsub}->auth_params;
-    $headers{'Content-Type'} = 'application/atom+xml';
+    $headers{'Content-Type'}  = 'application/atom+xml';
+    $headers{'GData-Version'} = $self->{'GData-Version'};
     my $url = 'http://www.google.com/m8/feeds/contacts/default/full';
     my $resp = $self->{ua}->post( $url, %headers, Content => $xml );
+    print STDERR $resp->content . "\n" if $self->{debug};
     return ( $resp->code == 201 ) ? 1 : 0;
 }
 
@@ -111,6 +116,7 @@ sub get_contacts {
     }
     my $resp = $self->{ua}->get( $url, $self->{authsub}->auth_params );
     my $content = $resp->content;
+    print STDERR $content . "\n" if $self->{debug};
     my $data =
       $self->{xmls}
       ->XMLin( $content, ForceArray => ['entry'], SuppressEmpty => undef );
@@ -213,13 +219,14 @@ sub create_group {
         },
     };
     my $xml = $self->{xmls}->XMLout( $data, KeepRoot => 1 );
+    print $xml . "\n" if $self->{debug};
 
     my %headers = $self->{authsub}->auth_params;
-    $headers{'Content-Type'} = 'application/atom+xml';
+    $headers{'Content-Type'}  = 'application/atom+xml';
+    $headers{'GData-Version'} = $self->{'GData-Version'};
     my $url = 'http://www.google.com/m8/feeds/groups/default/full';
     my $resp = $self->{ua}->post( $url, %headers, Content => $xml );
-    print $xml . "\n";
-    print $resp->content . "\n";
+    print $resp->content . "\n" if $self->{debug};
     return ( $resp->code == 201 ) ? 1 : 0;
 }
 
@@ -237,6 +244,7 @@ sub _delete {
     my %headers = $self->{authsub}->auth_params;
     $headers{'If-Match'}               = '*';
     $headers{'X-HTTP-Method-Override'} = 'DELETE';
+    $headers{'GData-Version'}          = $self->{'GData-Version'};
     my $resp = $self->{ua}->post( $id, %headers );
     return $resp->code == 200 ? 1 : 0;
 }
@@ -251,7 +259,7 @@ WWW::Google::Contacts - Google Contacts Data API
 
 =head1 VERSION
 
-version 0.01_01
+version 0.01_02
 
 =head1 SYNOPSIS
 
@@ -354,13 +362,17 @@ Get all groups.
 
 =back
 
+=head2 ACKNOWLEDGE
+
+John Clyde - who share me with his code about Contacts API
+
 =head1 AUTHOR
 
   Fayland Lam <fayland@gmail.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2009 by Fayland Lam.
+This software is copyright (c) 2010 by Fayland Lam.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.

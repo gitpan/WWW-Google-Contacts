@@ -11,7 +11,7 @@ WriteMakefile(
   NAME      => 'WWW::Google::Contacts',
   AUTHOR    => "Fayland\ Lam\ \<fayland\@gmail\.com\>",
   ABSTRACT  => "Google\ Contacts\ Data\ API",
-  VERSION   => '0.01_01',
+  VERSION   => '0.01_02',
   EXE_FILES => [ qw() ],
   (eval { ExtUtils::MakeMaker->VERSION(6.31) } ? (LICENSE => 'perl') : ()),
   PREREQ_PM    => {

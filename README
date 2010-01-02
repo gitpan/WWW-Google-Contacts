@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.01_01
+    version 0.01_02
 
 SYNOPSIS
         use WWW::Google::Contacts;
@@ -104,11 +104,14 @@ DESCRIPTION
 
             my $status = $gcontacts->delete_contact('http://www.google.com/m8/feeds/groups/account%40gmail.com/full/2');
 
+  ACKNOWLEDGE
+    John Clyde - who share me with his code about Contacts API
+
 AUTHOR
       Fayland Lam <fayland@gmail.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2009 by Fayland Lam.
+    This software is copyright (c) 2010 by Fayland Lam.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as perl itself.
