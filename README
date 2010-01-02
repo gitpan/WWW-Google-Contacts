@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.01_02
+    version 0.01
 
 SYNOPSIS
         use WWW::Google::Contacts;
@@ -87,6 +87,7 @@ DESCRIPTION
 
     *   create_group
 
+            my $status = $gcontacts->create_group( { title => 'Test Group' } );
             my $status = $gcontacts->create_group( { title => 'Test Group' } );
 
     *   get_groups

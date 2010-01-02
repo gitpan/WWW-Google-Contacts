@@ -1,5 +1,5 @@
 package WWW::Google::Contacts;
-our $VERSION = '0.01_02';
+our $VERSION = '0.01';
 
 # ABSTRACT: Google Contacts Data API
 
@@ -174,9 +174,10 @@ sub get_groups {
     foreach my $key ( keys %$args ) {
         $url .= '&' . uri_escape($key) . '=' . uri_escape( $args->{$key} );
     }
-    my $resp    = $self->{ua}->get( $url, $self->{authsub}->auth_params );
+    my $resp = $self->{ua}->get( $url, $self->{authsub}->auth_params );
     my $content = $resp->content;
-    my $data    = $self->{xmls}->XMLin( $content, SuppressEmpty => undef );
+    print $content . "\n" if $self->{debug};
+    my $data = $self->{xmls}->XMLin( $content, SuppressEmpty => undef );
 
     my @groups;
     foreach my $id ( keys %{ $data->{entry} } ) {
@@ -203,6 +204,7 @@ sub create_group {
 
     my $data = {
         'atom:entry' => {
+            'xmlns:atom'    => 'http://www.w3.org/2005/Atom',
             'xmlns:gd'      => 'http://schemas.google.com/g/2005',
             'atom:category' => {
                 'scheme' => 'http://schemas.google.com/g/2005#kind',
@@ -211,10 +213,6 @@ sub create_group {
             'atom:title' => {
                 type    => 'text',
                 content => $contact->{title},
-            },
-            'gd:extendedProperty' => {
-                name => 'more info about the group',
-                info => ['Nice people.'],
             }
         },
     };
@@ -224,7 +222,8 @@ sub create_group {
     my %headers = $self->{authsub}->auth_params;
     $headers{'Content-Type'}  = 'application/atom+xml';
     $headers{'GData-Version'} = $self->{'GData-Version'};
-    my $url = 'http://www.google.com/m8/feeds/groups/default/full';
+    my $url =
+      'http://www.google.com/m8/feeds/groups/faylandblog%40gmail.com/full';
     my $resp = $self->{ua}->post( $url, %headers, Content => $xml );
     print $resp->content . "\n" if $self->{debug};
     return ( $resp->code == 201 ) ? 1 : 0;
@@ -259,7 +258,7 @@ WWW::Google::Contacts - Google Contacts Data API
 
 =head1 VERSION
 
-version 0.01_02
+version 0.01
 
 =head1 SYNOPSIS
 
@@ -343,6 +342,7 @@ The B<id> is from C<get_contacts>.
 
 =item * create_group
 
+    my $status = $gcontacts->create_group( { title => 'Test Group' } );
     my $status = $gcontacts->create_group( { title => 'Test Group' } );
 
 =item * get_groups

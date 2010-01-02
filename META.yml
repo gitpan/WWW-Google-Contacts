@@ -13,4 +13,4 @@ requires:
   Net::Google::AuthSub: 0
 resources:
   repository: http://github.com/fayland/www-google-contacts
-version: 0.01_02
+version: 0.01
