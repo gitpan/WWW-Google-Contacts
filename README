@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.01
+    version 0.02
 
 SYNOPSIS
         use WWW::Google::Contacts;

@@ -11,6 +11,7 @@ name: WWW-Google-Contacts
 requires:
   LWP::UserAgent: 0
   Net::Google::AuthSub: 0
+  XML::Simple: 0
 resources:
   repository: http://github.com/fayland/www-google-contacts
-version: 0.01
+version: 0.02
