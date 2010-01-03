@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.02
+    version 0.03
 
 SYNOPSIS
         use WWW::Google::Contacts;
@@ -75,9 +75,25 @@ DESCRIPTION
         <http://code.google.com/apis/contacts/docs/2.0/reference.html#Parame
         ters>
 
+    *   get_contact($id)
+
+            my $contact = $gcontacts->get_contact('http://www.google.com/m8/feeds/contacts/account%40gmail.com/base/1');
+
+        get a contact by id
+
     *   update_contact
 
-        TODO
+            my $status = $gcontacts->update_contact('http://www.google.com/m8/feeds/contacts/account%40gmail.com/base/123623e48cb4e70a', {
+                givenName => 'FayTestG2',
+                familyName => 'FayTestF2',
+                fullName   => 'Fayland Lam2',
+                Notes     => 'just a note2',
+                primaryMail => 'primary@example2.com',
+                displayName => 'FayTest2 Dis',
+                secondaryMail => 'secndary@test62.com',
+            } );
+
+        update a contact
 
     *   delete_contact($id)
 
@@ -101,9 +117,21 @@ DESCRIPTION
 
         Get all groups.
 
+    *   get_group($id)
+
+            my $group = $gcontacts->get_group('http://www.google.com/m8/feeds/groups/account%40gmail.com/base/6e744e7d0a4b398c');
+
+        get a group by id
+
+    *   update_group($id, { title => $title })
+
+            my $status = $gcontacts->update_group( 'http://www.google.com/m8/feeds/groups/account%40gmail.com/base/6e744e7d0a4b398c', { title => 'New Test Group 66' } );
+
+        Update a group
+
     *   delete_group
 
-            my $status = $gcontacts->delete_contact('http://www.google.com/m8/feeds/groups/account%40gmail.com/full/2');
+            my $status = $gcontacts->delete_contact('http://www.google.com/m8/feeds/groups/account%40gmail.com/base/6e744e7d0a4b398c');
 
   ACKNOWLEDGE
     John Clyde - who share me with his code about Contacts API
