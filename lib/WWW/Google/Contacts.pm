@@ -1,5 +1,5 @@
 package WWW::Google::Contacts;
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 # ABSTRACT: Google Contacts Data API
 
@@ -33,7 +33,7 @@ sub login {
 
     $email ||= $self->{email};
     $pass  ||= $self->{pass};
-    $email or croak 'login(email, pass)2';
+    $email or croak 'login(email, pass)';
     $pass  or croak 'login(email, pass)';
 
     return 1 if $self->{_is_authed} and $self->{_is_authed} eq $email;
@@ -117,33 +117,20 @@ sub get_contacts {
     my $resp = $self->{ua}->get( $url, $self->{authsub}->auth_params );
     my $content = $resp->content;
     print STDERR $content . "\n" if $self->{debug};
-    my $data =
-      $self->{xmls}
-      ->XMLin( $content, ForceArray => ['entry'], SuppressEmpty => undef );
+    my $data = $self->{xmls}->XMLin(
+        $content,
+        ForceArray => [ 'entry', 'gd:email', 'gContact:groupMembershipInfo' ],
+        SuppressEmpty => undef
+    );
 
     my @contacts;
     foreach my $id ( keys %{ $data->{entry} } ) {
-        my $d       = $data->{entry}->{$id};
-        my $name    = $d->{'gd:name'}->{'gd:fullName'};
-        my $updated = $d->{updated};
-        my $groupMembershipInfo =
-          $d->{'gContact:groupMembershipInfo'}->{'href'};
-
-        my @emails;
-        my $emails = $d->{'gd:email'};
-        if ($emails) {
-            @emails = ( ref($emails) eq 'ARRAY' ) ? @{$emails} : ($emails);
-            @emails = map { $_->{address} } @emails;
-        }
-
-        push @contacts,
-          {
-            id                  => $id,
-            name                => $name,
-            updated             => $updated,
-            emails              => \@emails,
-            groupMembershipInfo => $groupMembershipInfo,
-          };
+        my $d = $data->{entry}->{$id};
+        $d->{id}                  = $id;
+        $d->{name}                = $d->{'gd:name'};
+        $d->{email}               = $d->{'gd:email'};
+        $d->{groupMembershipInfo} = $d->{'gContact:groupMembershipInfo'};
+        push @contacts, $d;
     }
 
     return @contacts;
@@ -383,7 +370,7 @@ WWW::Google::Contacts - Google Contacts Data API
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 SYNOPSIS
 
@@ -406,8 +393,10 @@ version 0.03
     
     my @contacts = $gcontacts->get_contacts;
     foreach my $contact (@contacts) {
-        print "$contact->{name}: " . join(', ', @{ $contact->{emails} }) . "\n";
-        $gcontacts->delete_contact($contact->{id}) if $contact->{name} eq 'Test';
+        my @emails = map { $_->{address} } @{ $contact->{email} };
+        print "$contact->{name}->{'gd:fullName'}: " . join(', ', @emails) . "\n";
+        $gcontacts->delete_contact($contact->{id})
+            if $contact->{name}->{'gd:givenName'} eq 'Test';
     }
 
 =head1 DESCRIPTION
@@ -484,7 +473,8 @@ The B<id> is from C<get_contacts>.
 =item * create_group
 
     my $status = $gcontacts->create_group( { title => 'Test Group' } );
-    my $status = $gcontacts->create_group( { title => 'Test Group' } );
+
+Create a new group
 
 =item * get_groups
 

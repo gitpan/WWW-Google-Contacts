@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.03
+    version 0.04
 
 SYNOPSIS
         use WWW::Google::Contacts;
@@ -24,8 +24,10 @@ SYNOPSIS
     
         my @contacts = $gcontacts->get_contacts;
         foreach my $contact (@contacts) {
-            print "$contact->{name}: " . join(', ', @{ $contact->{emails} }) . "\n";
-            $gcontacts->delete_contact($contact->{id}) if $contact->{name} eq 'Test';
+            my @emails = map { $_->{address} } @{ $contact->{email} };
+            print "$contact->{name}->{'gd:fullName'}: " . join(', ', @emails) . "\n";
+            $gcontacts->delete_contact($contact->{id})
+                if $contact->{name}->{'gd:givenName'} eq 'Test';
         }
 
 DESCRIPTION
@@ -104,7 +106,8 @@ DESCRIPTION
     *   create_group
 
             my $status = $gcontacts->create_group( { title => 'Test Group' } );
-            my $status = $gcontacts->create_group( { title => 'Test Group' } );
+
+        Create a new group
 
     *   get_groups
 
