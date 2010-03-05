@@ -1,5 +1,5 @@
 package WWW::Google::Contacts;
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 # ABSTRACT: Google Contacts Data API
 
@@ -78,15 +78,17 @@ sub create_contact {
                     primary     => 'true',
                     address     => $contact->{primaryMail},
                     displayName => $contact->{displayName},
-                },
-                {
-                    rel     => 'http://schemas.google.com/g/2005#home',
-                    address => $contact->{secondaryMail},
                 }
             ],
-
         },
     };
+    if ( $contact->{secondaryMail} ) {
+        push @{ $data->{'atom:entry'}->{'gd:email'} },
+          {
+            rel     => 'http://schemas.google.com/g/2005#home',
+            address => $contact->{secondaryMail},
+          };
+    }
     my $xml = $self->{xmls}->XMLout( $data, KeepRoot => 1 );
     print STDERR $xml . "\n" if $self->{debug};
 
@@ -178,10 +180,6 @@ sub update_contact {
                     primary     => 'true',
                     address     => $contact->{primaryMail},
                     displayName => $contact->{displayName},
-                },
-                {
-                    rel     => 'http://schemas.google.com/g/2005#home',
-                    address => $contact->{secondaryMail},
                 }
             ],
             'link' => [
@@ -198,6 +196,19 @@ sub update_contact {
             ],
         },
     };
+    if ( $contact->{secondaryMail} ) {
+        push @{ $data->{'atom:entry'}->{'gd:email'} },
+          {
+            rel     => 'http://schemas.google.com/g/2005#home',
+            address => $contact->{secondaryMail},
+          };
+    }
+    if ( $contact->{groupMembershipInfo} ) {
+        $data->{'atom:entry'}->{'gContact:groupMembershipInfo'} = {
+            deleted => 'false',
+            href    => $contact->{groupMembershipInfo}
+        };
+    }
     my $xml = $self->{xmls}->XMLout( $data, KeepRoot => 1 );
     print $xml . "\n" if $self->{debug};
 
@@ -370,7 +381,7 @@ WWW::Google::Contacts - Google Contacts Data API
 
 =head1 VERSION
 
-version 0.04
+version 0.05
 
 =head1 SYNOPSIS
 
@@ -387,7 +398,7 @@ version 0.04
         Notes     => 'just a note',
         primaryMail => 'primary@example.com',
         displayName => 'FayTest Dis',
-        secondaryMail => 'secndary@test.com',
+        secondaryMail => 'secndary@test.com', # optional
     } );
     print "Create OK" if $status;
     
@@ -421,7 +432,7 @@ This module implements 'Google Contacts Data API' according L<http://code.google
         Notes     => 'just a note',
         primaryMail => 'primary@example.com',
         displayName => 'FayTest Dis',
-        secondaryMail => 'secndary@test.com',
+        secondaryMail => 'secndary@test.com', # optional
     } );
 
 return 1 if created
@@ -459,7 +470,7 @@ get a contact by B<id>
         Notes     => 'just a note2',
         primaryMail => 'primary@example2.com',
         displayName => 'FayTest2 Dis',
-        secondaryMail => 'secndary@test62.com',
+        secondaryMail => 'secndary@test62.com', # optional
     } );
 
 update a contact

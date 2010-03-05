@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.04
+    version 0.05
 
 SYNOPSIS
         use WWW::Google::Contacts;
@@ -18,7 +18,7 @@ SYNOPSIS
             Notes     => 'just a note',
             primaryMail => 'primary@example.com',
             displayName => 'FayTest Dis',
-            secondaryMail => 'secndary@test.com',
+            secondaryMail => 'secndary@test.com', # optional
         } );
         print "Create OK" if $status;
     
@@ -50,7 +50,7 @@ DESCRIPTION
                 Notes     => 'just a note',
                 primaryMail => 'primary@example.com',
                 displayName => 'FayTest Dis',
-                secondaryMail => 'secndary@test.com',
+                secondaryMail => 'secndary@test.com', # optional
             } );
 
         return 1 if created
@@ -92,7 +92,7 @@ DESCRIPTION
                 Notes     => 'just a note2',
                 primaryMail => 'primary@example2.com',
                 displayName => 'FayTest2 Dis',
-                secondaryMail => 'secndary@test62.com',
+                secondaryMail => 'secndary@test62.com', # optional
             } );
 
         update a contact

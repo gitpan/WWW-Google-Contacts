@@ -15,4 +15,4 @@ requires:
   XML::Simple: 0
 resources:
   repository: http://github.com/fayland/www-google-contacts
-version: 0.04
+version: 0.05
