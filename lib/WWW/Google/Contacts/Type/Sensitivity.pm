@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Sensitivity;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Sensitivity::VERSION = '0.06';
+    $WWW::Google::Contacts::Type::Sensitivity::VERSION = '0.07';
 }
 
 use Moose;
@@ -33,7 +33,7 @@ WWW::Google::Contacts::Type::Sensitivity
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 AUTHORS
 

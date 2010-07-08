@@ -4,7 +4,6 @@ MANIFEST
 META.yml
 Makefile.PL
 README
-crud.pl
 dist.ini
 lib/WWW/Google/Contacts.pm
 lib/WWW/Google/Contacts/Base.pm

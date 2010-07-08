@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Website;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Website::VERSION = '0.06';
+    $WWW::Google::Contacts::Type::Website::VERSION = '0.07';
 }
 
 use Moose;
@@ -61,7 +61,7 @@ WWW::Google::Contacts::Type::Website
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 AUTHORS
 

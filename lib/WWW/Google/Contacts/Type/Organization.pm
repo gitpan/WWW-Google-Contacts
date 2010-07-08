@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Organization;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Organization::VERSION = '0.06';
+    $WWW::Google::Contacts::Type::Organization::VERSION = '0.07';
 }
 
 use Moose;
@@ -106,7 +106,7 @@ WWW::Google::Contacts::Type::Organization
 
 =head1 VERSION
 
-version 0.06
+version 0.07
 
 =head1 AUTHORS
 
