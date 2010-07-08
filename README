@@ -2,32 +2,35 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.05
+    version 0.06
 
 SYNOPSIS
         use WWW::Google::Contacts;
 
-        my $gcontacts = WWW::Google::Contacts->new();
-        $gcontacts->login('fayland@gmail.com', 'pass') or die 'login failed';
-    
-        # create contact
-        my $status = $gcontacts->create_contact( {
-            givenName => 'FayTestG',
-            familyName => 'FayTestF',
-            fullName   => 'Fayland Lam',
-            Notes     => 'just a note',
-            primaryMail => 'primary@example.com',
-            displayName => 'FayTest Dis',
-            secondaryMail => 'secndary@test.com', # optional
-        } );
-        print "Create OK" if $status;
-    
-        my @contacts = $gcontacts->get_contacts;
-        foreach my $contact (@contacts) {
-            my @emails = map { $_->{address} } @{ $contact->{email} };
-            print "$contact->{name}->{'gd:fullName'}: " . join(', ', @emails) . "\n";
-            $gcontacts->delete_contact($contact->{id})
-                if $contact->{name}->{'gd:givenName'} eq 'Test';
+        my $google = WWW::Google::Contacts->new( username => "your.username", password => "your.password" );
+
+        my $contact = $google->new_contact;
+        $contact->full_name("Emmett Brown");
+        $contact->name_prefix("Dr");
+        $contact->email('doctor@timetravel.org');
+        $contact->hobby("Time travel");
+        $contact->jot([ "Went back in time", "Went forward in time", "Became blacksmith" ]),
+        $contact->create;
+
+        my @contacts = $google->contacts->search({ given_name => "Emmett" });
+        foreach my $c ( @contacts ) {
+            print "Got the following jots about the good doctor\n";
+            foreach my $jot ( @{ $c->jot } ) {
+                print "Jot: " . $jot->value . "\n";
+            }
+            print "And now he goes back to the future\n";
+            $c->delete;
+        }
+
+
+        my $groups = $google->groups;
+        while ( my $group = $groups->next ) {
+            print "Title = " . $group->title . "\n";
         }
 
 DESCRIPTION
@@ -35,7 +38,41 @@ DESCRIPTION
     <http://code.google.com/apis/contacts/docs/3.0/developers_guide_protocol
     .html>
 
-  METHODS
+    NOTE This new interface is still quite untested. Please report any bugs.
+
+CONSTRUCTOR
+  new( username => .., password => .. )
+    *username* and *password* are required arguments and must be valid
+    Google credentials. If you do not have a Google account you can create
+    one at <https://www.google.com/accounts/NewAccount>.
+
+METHODS
+  $google->new_contact
+    Returns a new empty WWW::Google::Contacts::Contact object.
+
+  $google->contact( $id )
+    Given a valid contact ID, returns a WWW::Google::Contacts::Contact
+    object populated with contact data from Google.
+
+  $google->contacts
+    Returns a WWW::Google::Contacts::ContactList object which can be used to
+    iterate over all your contacts.
+
+  $google->new_group
+    Returns a new WWW::Google::Contacts::Group object.
+
+  $google->group( $id )
+    Given a valid group ID, returns a WWW::Google::Contacts::Group object
+    populated with group data from Google.
+
+  $google->groups
+    Returns a WWW::Google::Contacts::GroupList object which can be used to
+    iterate over all your groups.
+
+DEPRECATED METHODS
+    The old module interface is still available, but its use is discouraged.
+    It will eventually be removed from the module.
+
     *   new/login
 
             my $gcontacts = WWW::Google::Contacts->new();
@@ -136,15 +173,46 @@ DESCRIPTION
 
             my $status = $gcontacts->delete_contact('http://www.google.com/m8/feeds/groups/account%40gmail.com/base/6e744e7d0a4b398c');
 
-  ACKNOWLEDGE
+SEE ALSO
+    WWW::Google::Contacts::Contact
+
+    WWW::Google::Contacts::ContactList
+
+    WWW::Google::Contacts::Group
+
+    WWW::Google::Contacts::GroupList
+
+    <http://code.google.com/apis/contacts/docs/3.0/developers_guide_protocol
+    .html>
+
+ACKNOWLEDGEMENTS
     John Clyde - who share me with his code about Contacts API
+
+TODO
+    More POD
+    Unit tests. Very lame right now
+    Complete link between contact - group
+    Images
+    Fix bugs :)
 
 AUTHOR
       Fayland Lam <fayland@gmail.com>
+      Magnus Erixzon <magnus@erixzon.com>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2010 by Fayland Lam.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as perl itself.
+
+AUTHORS
+    *   Fayland Lam <fayland@gmail.com>
+
+    *   Magnus Erixzon <magnus@erixzon.com>
+
+COPYRIGHT AND LICENSE
+    This software is copyright (c) 2010 by Fayland Lam.
+
+    This is free software; you can redistribute it and/or modify it under
+    the same terms as the Perl 5 programming language system itself.
 

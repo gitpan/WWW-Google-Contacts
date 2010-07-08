@@ -2,17 +2,24 @@
 abstract: 'Google Contacts Data API'
 author:
   - 'Fayland Lam <fayland@gmail.com>'
-generated_by: 'Dist::Zilla version 1.100160'
+  - 'Magnus Erixzon <magnus@erixzon.com>'
+build_requires: {}
+configure_requires:
+  ExtUtils::MakeMaker: 6.31
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 4.101831, CPAN::Meta::Converter version 2.101670'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
   version: 1.4
 name: WWW-Google-Contacts
 requires:
-  ExtUtils::MakeMaker: 6.11
   LWP::UserAgent: 0
+  Moose: 0
+  MooseX::Singleton: 0
+  MooseX::Types: 0
   Net::Google::AuthSub: 0
   XML::Simple: 0
 resources:
-  repository: http://github.com/fayland/www-google-contacts
-version: 0.05
+  repository: http://github.com/merixzon/www-google-contacts
+version: 0.06
