@@ -14,6 +14,7 @@ meta-spec:
   version: 1.4
 name: WWW-Google-Contacts
 requires:
+  Crypt::SSLeay: 0
   LWP::UserAgent: 0
   Moose: 0
   MooseX::Singleton: 0
@@ -22,4 +23,4 @@ requires:
   XML::Simple: 0
 resources:
   repository: http://github.com/merixzon/www-google-contacts
-version: 0.07
+version: 0.08

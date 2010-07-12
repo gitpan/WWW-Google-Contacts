@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'WWW::Google::Contacts',
   'PREREQ_PM' => {
+    'Crypt::SSLeay' => '0',
     'LWP::UserAgent' => '0',
     'Moose' => '0',
     'MooseX::Singleton' => '0',
@@ -27,7 +28,7 @@ my %WriteMakefileArgs = (
     'Net::Google::AuthSub' => '0',
     'XML::Simple' => '0'
   },
-  'VERSION' => '0.07',
+  'VERSION' => '0.08',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.07';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.08';
 }
 
 use Moose::Role;
@@ -120,7 +120,7 @@ WWW::Google::Contacts::Roles::List
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 AUTHORS
 

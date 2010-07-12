@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::ExternalId;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::ExternalId::VERSION = '0.07';
+    $WWW::Google::Contacts::Type::ExternalId::VERSION = '0.08';
 }
 
 use Moose;
@@ -42,7 +42,7 @@ WWW::Google::Contacts::Type::ExternalId
 
 =head1 VERSION
 
-version 0.07
+version 0.08
 
 =head1 AUTHORS
 
