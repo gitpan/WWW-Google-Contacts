@@ -1,17 +1,20 @@
 package WWW::Google::Contacts::Roles::CRUD;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::CRUD::VERSION = '0.08';
+    $WWW::Google::Contacts::Roles::CRUD::VERSION = '0.09';
 }
 
 use Moose::Role;
 use Carp qw( croak );
 use XML::Simple ();
 
+use WWW::Google::Contacts::Server;
+
 requires 'create_url';
 
 has raw_data_for_backwards_compability => ( is => 'rw' );
-has server => ( is => 'ro', required => 1 );
+has server =>
+  ( is => 'ro', default => sub { WWW::Google::Contacts::Server->instance } );
 
 sub as_xml {
     my $self  = shift;
@@ -24,6 +27,7 @@ sub as_xml {
         },
     };
     my $xmls = XML::Simple->new;
+
     my $xml = $xmls->XMLout( $entry, KeepRoot => 1 );
     return $xml;
 }
@@ -41,11 +45,13 @@ sub create_or_update {
 sub create {
     my $self = shift;
 
-    my $xml  = $self->as_xml;
-    my $res  = $self->server->post( $self->create_url, $xml );
+    my $xml = $self->as_xml;
+    my $res =
+      $self->server->post( $self->create_url, undef, 'application/atom+xml',
+        $xml );
     my $xmls = XML::Simple->new;
     my $data = $xmls->XMLin( $res->content, SuppressEmpty => undef );
-    $self->_set_id( $data->{id} );
+    $self->set_from_server($data);
     1;
 }
 
@@ -66,7 +72,7 @@ sub update {
     croak "No id set" unless $self->id;
 
     my $xml = $self->as_xml;
-    $self->server->put( $self->id, $xml );
+    $self->server->put( $self->id, $self->etag, 'application/atom+xml', $xml );
     $self;
 }
 
@@ -74,7 +80,7 @@ sub delete {
     my $self = shift;
     croak "No id set" unless $self->id;
 
-    $self->server->delete( $self->id );
+    $self->server->delete( $self->id, $self->etag );
     1;
 }
 
@@ -90,7 +96,7 @@ WWW::Google::Contacts::Roles::CRUD
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 

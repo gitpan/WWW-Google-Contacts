@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Birthday;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Birthday::VERSION = '0.08';
+    $WWW::Google::Contacts::Type::Birthday::VERSION = '0.09';
 }
 
 use Moose;
@@ -30,7 +30,7 @@ WWW::Google::Contacts::Type::Birthday
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 

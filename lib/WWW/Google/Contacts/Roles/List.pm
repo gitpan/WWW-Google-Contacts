@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.08';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.09';
 }
 
 use Moose::Role;
@@ -9,6 +9,8 @@ use MooseX::Types::Moose qw( ArrayRef Int );
 use Carp qw( croak );
 use XML::Simple ();
 use URI::Escape;
+
+use WWW::Google::Contacts::Server;
 
 requires 'baseurl', 'element_class';
 
@@ -19,8 +21,8 @@ has elements => (
 );
 
 has server => (
-    is       => 'ro',
-    required => 1,
+    is      => 'ro',
+    default => sub { WWW::Google::Contacts::Server->instance },
 );
 
 has pointer => (
@@ -58,7 +60,7 @@ sub search {
     my $to_ret = [];
   ELEM:
     foreach my $elem ( @{ $self->elements } ) {
-        my $obj = $class->new( server => $self->server );
+        my $obj = $class->new();
         $obj->set_from_server($elem);
         $obj->_set_id( $elem->{id} );
         foreach my $key ( keys %{$search} ) {
@@ -76,7 +78,7 @@ sub next {
     my $next = $self->elements->[ $self->pointer ];
     $self->pointer( $self->pointer + 1 );
     my $class = $self->element_class;
-    return $class->new( server => $self->server )->set_from_server($next);
+    return $class->new()->set_from_server($next);
 }
 
 sub _build_elements {
@@ -94,13 +96,11 @@ sub _build_elements {
     my $content = $res->content;
     my $xmls    = XML::Simple->new;
     my $data    = $xmls->XMLin( $content, SuppressEmpty => undef );
+    my $array   = [ values %{ $data->{entry} } ];
 
-    # get the id in there...
-    my $array = [
-        map {
-            { %{ $data->{entry}{$_} }, id => $_ }
-          } keys %{ $data->{entry} }
-    ];
+    #use Data::Dumper;
+    #print Dumper $array->[0];
+    #die;
 
 # ..lots of overhead to bless them all now.
 #my $class = $self->element_class;
@@ -120,7 +120,7 @@ WWW::Google::Contacts::Roles::List
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 

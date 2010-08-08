@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.08';
+    $WWW::Google::Contacts::Contact::VERSION = '0.09';
 }
 
 use Moose;
@@ -28,6 +28,7 @@ use WWW::Google::Contacts::Types qw(
   Relation        ArrayRefOfRelation
   UserDefined     ArrayRefOfUserDefined
   Website         ArrayRefOfWebsite
+  Photo
 );
 use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 
@@ -42,6 +43,48 @@ has id => (
     is        => 'ro',
     writer    => '_set_id',
     predicate => 'has_id',
+    traits    => ['XmlField'],
+    xml_key   => 'id',
+);
+
+has etag => (
+    isa            => Str,
+    is             => 'ro',
+    writer         => '_set_etag',
+    predicate      => 'has_etag',
+    traits         => ['XmlField'],
+    xml_key        => 'gd:etag',
+    include_in_xml => 0,              # This is set in HTTP headers
+);
+
+has link => (
+    is             => 'rw',
+    trigger        => \&_set_link,
+    traits         => ['XmlField'],
+    xml_key        => 'link',
+    include_in_xml => 0,
+);
+
+# What to do with different link types
+my $link_map = {
+    'self' => sub { my ( $self, $link ) = @_; $self->_set_id( $link->{href} ) },
+    'http://schemas.google.com/contacts/2008/rel#photo' =>
+      sub { my ( $self, $link ) = @_; $self->photo($link) },
+};
+
+sub _set_link {
+    my ( $self, $links ) = @_;
+    foreach my $link ( @{$links} ) {
+        next unless ( defined $link_map->{ $link->{rel} } );
+        my $code = $link_map->{ $link->{rel} };
+        $self->$code($link);
+    }
+}
+
+has photo => (
+    isa    => Photo,
+    is     => 'rw',
+    coerce => 1,
 );
 
 has category => (
@@ -353,7 +396,7 @@ WWW::Google::Contacts::Contact
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 SYNOPSIS
 

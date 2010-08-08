@@ -4,6 +4,8 @@ MANIFEST
 META.yml
 Makefile.PL
 README
+blah
+blah.gif
 dist.ini
 lib/WWW/Google/Contacts.pm
 lib/WWW/Google/Contacts/Base.pm
@@ -13,6 +15,7 @@ lib/WWW/Google/Contacts/Group.pm
 lib/WWW/Google/Contacts/GroupList.pm
 lib/WWW/Google/Contacts/InternalTypes.pm
 lib/WWW/Google/Contacts/Meta/Attribute/Trait/XmlField.pm
+lib/WWW/Google/Contacts/Photo.pm
 lib/WWW/Google/Contacts/Roles/CRUD.pm
 lib/WWW/Google/Contacts/Roles/List.pm
 lib/WWW/Google/Contacts/Server.pm

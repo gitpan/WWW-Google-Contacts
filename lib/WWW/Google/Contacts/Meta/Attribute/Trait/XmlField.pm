@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 
 BEGIN {
-    $WWW::Google::Contacts::Meta::Attribute::Trait::XmlField::VERSION = '0.08';
+    $WWW::Google::Contacts::Meta::Attribute::Trait::XmlField::VERSION = '0.09';
 }
 
 use Moose::Role;
@@ -25,12 +25,18 @@ has is_element => (
     default => sub { 0 },
 );
 
+has include_in_xml => (
+    isa     => 'Bool',
+    is      => 'ro',
+    default => sub { 1 },
+);
+
 no Moose::Role;
 
 package Moose::Meta::Attribute::Custom::Trait::XmlField;
 
 BEGIN {
-    $Moose::Meta::Attribute::Custom::Trait::XmlField::VERSION = '0.08';
+    $Moose::Meta::Attribute::Custom::Trait::XmlField::VERSION = '0.09';
 }
 
 sub register_implementation {
@@ -49,7 +55,7 @@ WWW::Google::Contacts::Meta::Attribute::Trait::XmlField
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 

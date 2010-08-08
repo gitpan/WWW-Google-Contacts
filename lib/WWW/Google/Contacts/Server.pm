@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Server;
 
 BEGIN {
-    $WWW::Google::Contacts::Server::VERSION = '0.08';
+    $WWW::Google::Contacts::Server::VERSION = '0.09';
 }
 
 use MooseX::Singleton;
@@ -65,10 +65,10 @@ sub get {
 }
 
 sub post {
-    my ( $self, $id, $content ) = @_;
+    my ( $self, $id, $etag, $content_type, $content ) = @_;
 
     my %headers = $self->authsub->auth_params;
-    $headers{'Content-Type'}  = 'application/atom+xml';
+    $headers{'Content-Type'}  = $content_type;
     $headers{'GData-Version'} = $self->gdata_version;
     my $res = $self->ua->post( $id, %headers, Content => $content );
     unless ( $res->is_success ) {
@@ -80,25 +80,27 @@ sub post {
 }
 
 sub put {
-    my ( $self, $id, $content ) = @_;
+    my ( $self, $id, $etag, $content_type, $content ) = @_;
 
     my %headers = $self->authsub->auth_params;
-    $headers{'Content-Type'}           = 'application/atom+xml';
+    $headers{'Content-Type'}           = $content_type;
     $headers{'GData-Version'}          = $self->gdata_version;
-    $headers{'If-Match'}               = '*';
+    $headers{'If-Match'}               = $etag;
     $headers{'X-HTTP-Method-Override'} = 'PUT';
     my $res = $self->ua->post( $id, %headers, Content => $content );
     unless ( $res->is_success ) {
+
+        #use Data::Dumper; print Dumper $res;
         croak "PUT failed: " . $res->status_line;
     }
     return $res;
 }
 
 sub delete {
-    my ( $self, $id ) = @_;
+    my ( $self, $id, $etag ) = @_;
 
     my %headers = $self->authsub->auth_params;
-    $headers{'If-Match'}               = '*';
+    $headers{'If-Match'}               = $etag;
     $headers{'X-HTTP-Method-Override'} = 'DELETE';
     $headers{'GData-Version'}          = $self->gdata_version;
     my $res = $self->ua->post( $id, %headers );
@@ -120,7 +122,7 @@ WWW::Google::Contacts::Server
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 

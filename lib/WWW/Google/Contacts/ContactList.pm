@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::ContactList;
 
 BEGIN {
-    $WWW::Google::Contacts::ContactList::VERSION = '0.08';
+    $WWW::Google::Contacts::ContactList::VERSION = '0.09';
 }
 
 use Moose;
@@ -26,7 +26,7 @@ WWW::Google::Contacts::ContactList
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 SYNOPSIS
 
@@ -38,6 +38,11 @@ version 0.08
 
     while ( my $cont = $contacts->next ) {
        print "You got a friend called " . $cont->full_name . "\n";
+
+       if ( $cont->photo->exist ) {
+          print "And you got a photo of this friend\n";
+          $contact->photo->to_file( "/tmp/photo.jpg" );
+       }
     }
 
 =head1 METHODS

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Base;
 
 BEGIN {
-    $WWW::Google::Contacts::Base::VERSION = '0.08';
+    $WWW::Google::Contacts::Base::VERSION = '0.09';
 }
 
 use Moose;
@@ -37,6 +37,8 @@ sub to_xml_hashref {
 
     my $to_return = {};
     foreach my $attr ( $self->xml_attributes ) {
+        next unless $attr->include_in_xml;
+
         my $predicate = $attr->predicate;
 
         next
@@ -64,8 +66,15 @@ sub set_from_server {
 
     foreach my $attr ( $self->xml_attributes ) {
         if ( defined $data->{ $attr->xml_key } ) {
-            my $name = $attr->name;
-            $self->$name( $data->{ $attr->xml_key } );
+            if ( my $writer = $attr->writer ) {
+
+                # write attributes that are read only to the user
+                $self->$writer( $data->{ $attr->xml_key } );
+            }
+            else {
+                my $name = $attr->name;
+                $self->$name( $data->{ $attr->xml_key } );
+            }
         }
     }
     return $self;
@@ -106,7 +115,7 @@ WWW::Google::Contacts::Base
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 

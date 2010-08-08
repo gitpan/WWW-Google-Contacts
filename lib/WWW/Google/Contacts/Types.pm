@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Types;
 
 BEGIN {
-    $WWW::Google::Contacts::Types::VERSION = '0.08';
+    $WWW::Google::Contacts::Types::VERSION = '0.09';
 }
 
 use MooseX::Types -declare => [
@@ -27,6 +27,7 @@ use MooseX::Types -declare => [
       Relation        ArrayRefOfRelation
       UserDefined     ArrayRefOfUserDefined
       Website         ArrayRefOfWebsite
+      Photo
       )
 ];
 
@@ -312,6 +313,13 @@ coerce ArrayRefOfWebsite, from ArrayRef, via {
     [ map { to_Website($_) } @{$_} ];
 }, from Any, via { [ to_Website($_) ] };
 
+class_type Photo, { class => 'WWW::Google::Contacts::Photo' };
+
+coerce Photo, from HashRef, via {
+    require WWW::Google::Contacts::Photo;
+    WWW::Google::Contacts::Photo->new($_);
+};
+
 __END__
 
 =pod
@@ -322,7 +330,7 @@ WWW::Google::Contacts::Types
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHORS
 
