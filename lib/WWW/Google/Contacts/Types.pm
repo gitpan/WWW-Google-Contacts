@@ -1,8 +1,7 @@
-package    # hide from PAUSE
-  WWW::Google::Contacts::Types;
+package WWW::Google::Contacts::Types;
 
 BEGIN {
-    $WWW::Google::Contacts::Types::VERSION = '0.10';
+    $WWW::Google::Contacts::Types::VERSION = '0.11';
 }
 
 use MooseX::Types -declare => [
@@ -331,7 +330,7 @@ WWW::Google::Contacts::Types
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHORS
 

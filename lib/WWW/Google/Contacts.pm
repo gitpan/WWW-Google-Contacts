@@ -12,7 +12,7 @@ use WWW::Google::Contacts::ContactList;
 use WWW::Google::Contacts::Group;
 use WWW::Google::Contacts::GroupList;
 
-our $VERSION = '0.10';
+our $VERSION = '0.11';
 $VERSION = eval $VERSION;
 
 has username => (
@@ -244,7 +244,7 @@ WWW::Google::Contacts - Google Contacts Data API
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 

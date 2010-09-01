@@ -1,8 +1,7 @@
-package    # hide from PAUSE
-  WWW::Google::Contacts::Type::Rel;
+package WWW::Google::Contacts::Type::Rel;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Rel::VERSION = '0.10';
+    $WWW::Google::Contacts::Type::Rel::VERSION = '0.11';
 }
 
 use Moose;
@@ -59,7 +58,7 @@ WWW::Google::Contacts::Type::Rel
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHORS
 

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.10';
+    $WWW::Google::Contacts::Contact::VERSION = '0.11';
 }
 
 use Moose;
@@ -396,7 +396,7 @@ WWW::Google::Contacts::Contact
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 SYNOPSIS
 

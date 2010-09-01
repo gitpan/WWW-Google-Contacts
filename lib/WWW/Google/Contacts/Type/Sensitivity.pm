@@ -1,8 +1,7 @@
-package    # hide from PAUSE
-  WWW::Google::Contacts::Type::Sensitivity;
+package WWW::Google::Contacts::Type::Sensitivity;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Sensitivity::VERSION = '0.10';
+    $WWW::Google::Contacts::Type::Sensitivity::VERSION = '0.11';
 }
 
 use Moose;
@@ -34,7 +33,7 @@ WWW::Google::Contacts::Type::Sensitivity
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHORS
 

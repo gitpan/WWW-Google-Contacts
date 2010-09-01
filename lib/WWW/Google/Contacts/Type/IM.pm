@@ -1,8 +1,7 @@
-package    # hide from PAUSE
-  WWW::Google::Contacts::Type::IM;
+package WWW::Google::Contacts::Type::IM;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::IM::VERSION = '0.10';
+    $WWW::Google::Contacts::Type::IM::VERSION = '0.11';
 }
 
 use Moose;
@@ -51,7 +50,7 @@ WWW::Google::Contacts::Type::IM
 
 =head1 VERSION
 
-version 0.10
+version 0.11
 
 =head1 AUTHORS
 
