@@ -12,7 +12,7 @@ use WWW::Google::Contacts::ContactList;
 use WWW::Google::Contacts::Group;
 use WWW::Google::Contacts::GroupList;
 
-our $VERSION = '0.09';
+our $VERSION = '0.10';
 $VERSION = eval $VERSION;
 
 has username => (
@@ -244,7 +244,7 @@ WWW::Google::Contacts - Google Contacts Data API
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 SYNOPSIS
 
@@ -469,11 +469,11 @@ the same terms as perl itself.
 
 =item *
 
-Fayland Lam <fayland@gmail.com>
+Magnus Erixzon <magnus@erixzon.com>
 
 =item *
 
-Magnus Erixzon <magnus@erixzon.com>
+Fayland Lam <fayland@gmail.com>
 
 =back
 

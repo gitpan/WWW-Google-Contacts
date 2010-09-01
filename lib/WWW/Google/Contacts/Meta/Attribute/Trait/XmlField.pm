@@ -1,7 +1,8 @@
-package WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
+package    # hide from PAUSE
+  WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 
 BEGIN {
-    $WWW::Google::Contacts::Meta::Attribute::Trait::XmlField::VERSION = '0.09';
+    $WWW::Google::Contacts::Meta::Attribute::Trait::XmlField::VERSION = '0.10';
 }
 
 use Moose::Role;
@@ -36,7 +37,7 @@ no Moose::Role;
 package Moose::Meta::Attribute::Custom::Trait::XmlField;
 
 BEGIN {
-    $Moose::Meta::Attribute::Custom::Trait::XmlField::VERSION = '0.09';
+    $Moose::Meta::Attribute::Custom::Trait::XmlField::VERSION = '0.10';
 }
 
 sub register_implementation {
@@ -55,7 +56,7 @@ WWW::Google::Contacts::Meta::Attribute::Trait::XmlField
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 AUTHORS
 
@@ -63,11 +64,11 @@ version 0.09
 
 =item *
 
-Fayland Lam <fayland@gmail.com>
+Magnus Erixzon <magnus@erixzon.com>
 
 =item *
 
-Magnus Erixzon <magnus@erixzon.com>
+Fayland Lam <fayland@gmail.com>
 
 =back
 

@@ -1,7 +1,8 @@
-package WWW::Google::Contacts::Type::PostalAddress;
+package    # hide from PAUSE
+  WWW::Google::Contacts::Type::PostalAddress;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::PostalAddress::VERSION = '0.09';
+    $WWW::Google::Contacts::Type::PostalAddress::VERSION = '0.10';
 }
 
 use Moose;
@@ -169,7 +170,7 @@ WWW::Google::Contacts::Type::PostalAddress
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 AUTHORS
 
@@ -177,11 +178,11 @@ version 0.09
 
 =item *
 
-Fayland Lam <fayland@gmail.com>
+Magnus Erixzon <magnus@erixzon.com>
 
 =item *
 
-Magnus Erixzon <magnus@erixzon.com>
+Fayland Lam <fayland@gmail.com>
 
 =back
 

@@ -2,7 +2,7 @@ NAME
     WWW::Google::Contacts - Google Contacts Data API
 
 VERSION
-    version 0.09
+    version 0.10
 
 SYNOPSIS
         use WWW::Google::Contacts;
@@ -206,9 +206,9 @@ COPYRIGHT AND LICENSE
     the same terms as perl itself.
 
 AUTHORS
-    *   Fayland Lam <fayland@gmail.com>
-
     *   Magnus Erixzon <magnus@erixzon.com>
+
+    *   Fayland Lam <fayland@gmail.com>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2010 by Fayland Lam.

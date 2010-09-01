@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.09';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.10';
 }
 
 use Moose::Role;
@@ -62,7 +62,6 @@ sub search {
     foreach my $elem ( @{ $self->elements } ) {
         my $obj = $class->new();
         $obj->set_from_server($elem);
-        $obj->_set_id( $elem->{id} );
         foreach my $key ( keys %{$search} ) {
             next ELEM unless ( defined $obj->$key );
             next ELEM unless ( $obj->$key eq $search->{$key} );
@@ -120,7 +119,7 @@ WWW::Google::Contacts::Roles::List
 
 =head1 VERSION
 
-version 0.09
+version 0.10
 
 =head1 AUTHORS
 
@@ -128,11 +127,11 @@ version 0.09
 
 =item *
 
-Fayland Lam <fayland@gmail.com>
+Magnus Erixzon <magnus@erixzon.com>
 
 =item *
 
-Magnus Erixzon <magnus@erixzon.com>
+Fayland Lam <fayland@gmail.com>
 
 =back
 

@@ -10,7 +10,7 @@ use ExtUtils::MakeMaker 6.31;
 
 my %WriteMakefileArgs = (
   'ABSTRACT' => 'Google Contacts Data API',
-  'AUTHOR' => 'Fayland Lam <fayland@gmail.com>, Magnus Erixzon <magnus@erixzon.com>',
+  'AUTHOR' => 'Magnus Erixzon <magnus@erixzon.com>, Fayland Lam <fayland@gmail.com>',
   'BUILD_REQUIRES' => {},
   'CONFIGURE_REQUIRES' => {
     'ExtUtils::MakeMaker' => '6.31'
@@ -28,7 +28,7 @@ my %WriteMakefileArgs = (
     'Net::Google::AuthSub' => '0',
     'XML::Simple' => '0'
   },
-  'VERSION' => '0.09',
+  'VERSION' => '0.10',
   'test' => {
     'TESTS' => 't/*.t'
   }
