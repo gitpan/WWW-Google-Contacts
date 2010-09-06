@@ -23,12 +23,12 @@ my %WriteMakefileArgs = (
     'Crypt::SSLeay' => '0',
     'LWP::UserAgent' => '0',
     'Moose' => '0',
-    'MooseX::Singleton' => '0',
+    'MooseX::Singleton' => '0.25',
     'MooseX::Types' => '0',
     'Net::Google::AuthSub' => '0',
     'XML::Simple' => '0'
   },
-  'VERSION' => '0.11',
+  'VERSION' => '0.12',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Jot;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Jot::VERSION = '0.11';
+    $WWW::Google::Contacts::Type::Jot::VERSION = '0.12';
 }
 
 use Moose;
@@ -42,7 +42,7 @@ WWW::Google::Contacts::Type::Jot
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 AUTHORS
 

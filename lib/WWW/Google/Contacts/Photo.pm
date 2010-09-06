@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Photo;
 
 BEGIN {
-    $WWW::Google::Contacts::Photo::VERSION = '0.11';
+    $WWW::Google::Contacts::Photo::VERSION = '0.12';
 }
 
 use Moose;
@@ -108,7 +108,7 @@ WWW::Google::Contacts::Photo
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 AUTHORS
 

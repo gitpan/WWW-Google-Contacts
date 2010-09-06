@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Server;
 
 BEGIN {
-    $WWW::Google::Contacts::Server::VERSION = '0.11';
+    $WWW::Google::Contacts::Server::VERSION = '0.12';
 }
 
 use MooseX::Singleton;
@@ -122,7 +122,7 @@ WWW::Google::Contacts::Server
 
 =head1 VERSION
 
-version 0.11
+version 0.12
 
 =head1 AUTHORS
 
