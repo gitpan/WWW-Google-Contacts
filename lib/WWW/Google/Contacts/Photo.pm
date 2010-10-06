@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Photo;
 
 BEGIN {
-    $WWW::Google::Contacts::Photo::VERSION = '0.13';
+    $WWW::Google::Contacts::Photo::VERSION = '0.14';
 }
 
 use Moose;
@@ -12,8 +12,7 @@ use File::Slurp qw( read_file );
 
 extends 'WWW::Google::Contacts::Base';
 
-has server =>
-  ( is => 'ro', default => sub { WWW::Google::Contacts::Server->instance } );
+has server => ( is => 'ro', required => 1 );
 
 has rel => (
     isa      => Str,

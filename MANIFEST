@@ -44,6 +44,7 @@ lib/WWW/Google/Contacts/Type/When.pm
 lib/WWW/Google/Contacts/Types.pm
 t/00-load.t
 t/01-basics.t
+t/10-list-contacts-ONLINE.t
 t/50.types.t
 t/9999.deprecated.get_contact.t
 t/9999.deprecated.get_contacts.t

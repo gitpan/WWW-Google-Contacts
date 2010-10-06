@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.13';
+    $WWW::Google::Contacts::Contact::VERSION = '0.14';
 }
 
 use Moose;
@@ -68,8 +68,10 @@ has link => (
 # What to do with different link types
 my $link_map = {
     'self' => sub { my ( $self, $link ) = @_; $self->_set_id( $link->{href} ) },
-    'http://schemas.google.com/contacts/2008/rel#photo' =>
-      sub { my ( $self, $link ) = @_; $self->photo($link) },
+    'http://schemas.google.com/contacts/2008/rel#photo' => sub {
+        my ( $self, $link ) = @_;
+        $self->photo( { %$link, server => $self->server } );
+    },
 };
 
 sub _set_link {
