@@ -1,9 +1,3 @@
-NAME
-    WWW::Google::Contacts - Google Contacts Data API
-
-VERSION
-    version 0.12
-
 SYNOPSIS
         use WWW::Google::Contacts;
 
@@ -186,7 +180,9 @@ SEE ALSO
     .html>
 
 ACKNOWLEDGEMENTS
-    John Clyde - who share me with his code about Contacts API
+    Fayland Lam - who wrote the first version of this module
+
+    John Clyde - who shared his code about Contacts API with Fayland
 
 TODO
     More POD
@@ -196,23 +192,11 @@ TODO
     Fix bugs :)
 
 AUTHOR
-      Fayland Lam <fayland@gmail.com>
       Magnus Erixzon <magnus@erixzon.com>
 
 COPYRIGHT AND LICENSE
-    This software is copyright (c) 2010 by Fayland Lam.
+    This software is copyright (c) 2010 by Magnus Erixzon.
 
     This is free software; you can redistribute it and/or modify it under
     the same terms as perl itself.
-
-AUTHORS
-    *   Magnus Erixzon <magnus@erixzon.com>
-
-    *   Fayland Lam <fayland@gmail.com>
-
-COPYRIGHT AND LICENSE
-    This software is copyright (c) 2010 by Fayland Lam.
-
-    This is free software; you can redistribute it and/or modify it under
-    the same terms as the Perl 5 programming language system itself.
 

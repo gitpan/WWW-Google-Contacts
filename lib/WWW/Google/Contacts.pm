@@ -1,5 +1,9 @@
 package WWW::Google::Contacts;
 
+BEGIN {
+    $WWW::Google::Contacts::VERSION = '0.13';
+}
+
 # ABSTRACT: Google Contacts Data API
 
 use Moose;
@@ -12,17 +16,22 @@ use WWW::Google::Contacts::ContactList;
 use WWW::Google::Contacts::Group;
 use WWW::Google::Contacts::GroupList;
 
-our $VERSION = '0.12';
-$VERSION = eval $VERSION;
-
 has username => (
-    isa => 'Str',
-    is  => 'rw',
+    isa     => 'Str',
+    is      => 'rw',
+    default => sub { $ENV{GOOGLE_USERNAME} },
 );
 
 has password => (
-    isa => 'Str',
-    is  => 'rw',
+    isa     => 'Str',
+    is      => 'rw',
+    default => sub { $ENV{GOOGLE_PASSWORD} },
+);
+
+has server => (
+    isa        => 'Object',
+    is         => 'ro',
+    lazy_build => 1,
 );
 
 # backward compability
@@ -31,46 +40,58 @@ has email =>
 has pass =>
   ( isa => 'Str', is => 'rw', trigger => sub { $_[0]->password( $_[1] ) } );
 
-sub BUILD {
+sub _build_server {
     my $self = shift;
-    my $args = {};
-    foreach my $a (qw( username password )) {
-        $args->{$a} = $self->$a if $self->$a;
-    }
-    return WWW::Google::Contacts::Server->initialize($args);
+    return WWW::Google::Contacts::Server->new(
+        {
+            username => $self->username,
+            password => $self->password,
+        }
+    );
 }
 
 sub new_contact {
     my $self = shift;
-    return WWW::Google::Contacts::Contact->new(@_);
+    my $args =
+        ( scalar(@_) == 1 and ref( $_[0] ) eq 'HASH' )
+      ? { %{ $_[0] }, server => $self->server }
+      : { @_, server => $self->server };
+    return WWW::Google::Contacts::Contact->new($args);
 }
 
 sub contact {
     my ( $self, $id ) = @_;
-    return WWW::Google::Contacts::Contact->new( id => $id )->retrieve;
+    return WWW::Google::Contacts::Contact->new( id => $id,
+        server => $self->server )->retrieve;
 }
 
 sub contacts {
     my $self = shift;
 
-    my $list = WWW::Google::Contacts::ContactList->new();
+    my $list =
+      WWW::Google::Contacts::ContactList->new( server => $self->server );
     return $list;
 }
 
 sub new_group {
     my $self = shift;
-    return WWW::Google::Contacts::Group->new(@_);
+    my $args =
+        ( scalar(@_) == 1 and ref( $_[0] ) eq 'HASH' )
+      ? { %{ $_[0] }, server => $self->server }
+      : { @_, server => $self->server };
+    return WWW::Google::Contacts::Group->new($args);
 }
 
 sub group {
     my ( $self, $id ) = @_;
-    return WWW::Google::Contacts::Group->new( id => $id )->retrieve;
+    return WWW::Google::Contacts::Group->new( id => $id,
+        server => $self->server )->retrieve;
 }
 
 sub groups {
     my $self = shift;
 
-    my $list = WWW::Google::Contacts::GroupList->new();
+    my $list = WWW::Google::Contacts::GroupList->new( server => $self->server );
     return $list;
 }
 
@@ -80,7 +101,8 @@ sub login {
     my ( $self, $email, $pass ) = @_;
     $self->email($email);
     $self->pass($pass);
-    my $server = WWW::Google::Contacts::Server->instance;
+    my $server = WWW::Google::Contacts::Server->new(
+        { username => $self->email, password => $self->password } );
     $server->authenticate;
     return 1;
 }
@@ -235,16 +257,7 @@ sub delete_group {
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
-
-=pod
-
-=head1 NAME
-
-WWW::Google::Contacts - Google Contacts Data API
-
-=head1 VERSION
-
-version 0.12
+__END__
 
 =head1 SYNOPSIS
 
@@ -433,7 +446,9 @@ L<http://code.google.com/apis/contacts/docs/3.0/developers_guide_protocol.html>
 
 =head1 ACKNOWLEDGEMENTS
 
-John Clyde - who share me with his code about Contacts API
+Fayland Lam - who wrote the first version of this module
+
+John Clyde - who shared his code about Contacts API with Fayland
 
 =head1 TODO
 
@@ -453,37 +468,13 @@ John Clyde - who share me with his code about Contacts API
 
 =head1 AUTHOR
 
-  Fayland Lam <fayland@gmail.com>
   Magnus Erixzon <magnus@erixzon.com>
 
 =head1 COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2010 by Fayland Lam.
+This software is copyright (c) 2010 by Magnus Erixzon.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.
 
-=head1 AUTHORS
-
-=over 4
-
-=item *
-
-Magnus Erixzon <magnus@erixzon.com>
-
-=item *
-
-Fayland Lam <fayland@gmail.com>
-
-=back
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Fayland Lam.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
 =cut
-
-__END__

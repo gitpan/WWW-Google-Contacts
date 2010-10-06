@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.12';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.13';
 }
 
 use Moose::Role;
@@ -9,8 +9,6 @@ use MooseX::Types::Moose qw( ArrayRef Int );
 use Carp qw( croak );
 use XML::Simple ();
 use URI::Escape;
-
-use WWW::Google::Contacts::Server;
 
 requires 'baseurl', 'element_class';
 
@@ -21,8 +19,8 @@ has elements => (
 );
 
 has server => (
-    is      => 'ro',
-    default => sub { WWW::Google::Contacts::Server->instance },
+    is       => 'ro',
+    required => 1,
 );
 
 has pointer => (
@@ -108,38 +106,3 @@ sub _build_elements {
 }
 
 1;
-
-__END__
-
-=pod
-
-=head1 NAME
-
-WWW::Google::Contacts::Roles::List
-
-=head1 VERSION
-
-version 0.12
-
-=head1 AUTHORS
-
-=over 4
-
-=item *
-
-Magnus Erixzon <magnus@erixzon.com>
-
-=item *
-
-Fayland Lam <fayland@gmail.com>
-
-=back
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Fayland Lam.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=cut

@@ -1,10 +1,10 @@
 package WWW::Google::Contacts::Server;
 
 BEGIN {
-    $WWW::Google::Contacts::Server::VERSION = '0.12';
+    $WWW::Google::Contacts::Server::VERSION = '0.13';
 }
 
-use MooseX::Singleton;
+use Moose;
 use LWP::UserAgent;
 use Net::Google::AuthSub;
 use Carp qw( croak );
@@ -20,15 +20,15 @@ has authsub => (
 );
 
 has username => (
-    isa     => 'Str',
-    is      => 'ro',
-    default => sub { $ENV{GOOGLE_USERNAME} },
+    isa      => 'Str',
+    is       => 'ro',
+    required => 1,
 );
 
 has password => (
-    isa     => 'Str',
-    is      => 'ro',
-    default => sub { $ENV{GOOGLE_PASSWORD} },
+    isa      => 'Str',
+    is       => 'ro',
+    required => 1,
 );
 
 has gdata_version => (
@@ -113,38 +113,4 @@ sub delete {
 no Moose;
 __PACKAGE__->meta->make_immutable;
 1;
-
-=pod
-
-=head1 NAME
-
-WWW::Google::Contacts::Server
-
-=head1 VERSION
-
-version 0.12
-
-=head1 AUTHORS
-
-=over 4
-
-=item *
-
-Magnus Erixzon <magnus@erixzon.com>
-
-=item *
-
-Fayland Lam <fayland@gmail.com>
-
-=back
-
-=head1 COPYRIGHT AND LICENSE
-
-This software is copyright (c) 2010 by Fayland Lam.
-
-This is free software; you can redistribute it and/or modify it under
-the same terms as the Perl 5 programming language system itself.
-
-=cut
-
 __END__
