@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::PostalAddress;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::PostalAddress::VERSION = '0.14';
+    $WWW::Google::Contacts::Type::PostalAddress::VERSION = '0.15';
 }
 
 use Moose;
@@ -20,6 +20,14 @@ has type => (
     coerce    => 1,
 );
 
+has label => (
+    isa       => Str,
+    is        => 'rw',
+    traits    => ['XmlField'],
+    xml_key   => 'label',
+    predicate => 'has_label',
+);
+
 has mail_class => (
     isa       => Rel,
     is        => 'rw',
@@ -36,14 +44,6 @@ has usage => (
     xml_key   => 'usage',
     predicate => 'has_usage',
     coerce    => 1,
-);
-
-has label => (
-    isa       => Str,
-    is        => 'rw',
-    traits    => ['XmlField'],
-    xml_key   => 'label',
-    predicate => 'has_label',
 );
 
 has primary => (

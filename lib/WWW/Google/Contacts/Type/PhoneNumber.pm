@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::PhoneNumber;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::PhoneNumber::VERSION = '0.14';
+    $WWW::Google::Contacts::Type::PhoneNumber::VERSION = '0.15';
 }
 
 use Moose;
@@ -18,6 +18,14 @@ has type => (
     xml_key   => 'rel',
     predicate => 'has_type',
     coerce    => 1,
+);
+
+has label => (
+    isa       => Str,
+    is        => 'rw',
+    traits    => ['XmlField'],
+    xml_key   => 'label',
+    predicate => 'has_label',
 );
 
 has value => (
