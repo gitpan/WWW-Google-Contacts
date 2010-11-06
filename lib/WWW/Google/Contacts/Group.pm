@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Group;
 
 BEGIN {
-    $WWW::Google::Contacts::Group::VERSION = '0.16';
+    $WWW::Google::Contacts::Group::VERSION = '0.17';
 }
 
 use Moose;
@@ -23,6 +23,8 @@ has id => (
     is        => 'ro',
     writer    => '_set_id',
     predicate => 'has_id',
+    traits    => ['XmlField'],
+    xml_key   => 'id',
 );
 
 has category => (
@@ -43,6 +45,42 @@ has title => (
     xml_key    => 'title',
     is_element => 1,
 );
+
+has member => (
+    is         => 'ro',
+    lazy_build => 1,
+);
+
+has link => (
+    is             => 'rw',
+    trigger        => \&_set_link,
+    traits         => ['XmlField'],
+    xml_key        => 'link',
+    include_in_xml => 0,
+);
+
+# What to do with different link types
+my $link_map =
+  { 'self' => sub { my ( $self, $link ) = @_; $self->_set_id( $link->{href} ) },
+  };
+
+sub _set_link {
+    my ( $self, $links ) = @_;
+    $links = ref($links) eq 'ARRAY' ? $links : [$links];
+    foreach my $link ( @{$links} ) {
+        next unless ( defined $link_map->{ $link->{rel} } );
+        my $code = $link_map->{ $link->{rel} };
+        $link->{href} =~ s{/full/}{/base/};
+        $self->$code($link);
+    }
+}
+
+sub _build_member {
+    my $self = shift;
+    my $list =
+      WWW::Google::Contacts::ContactList->new( server => $self->server );
+    return $list->search( { group_membership => $self->id } );
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
@@ -91,6 +129,14 @@ All these attributes are gettable and settable on Group objects.
 The title of the group
 
  $group->title("People I'm only 'friends' with because of the damn Facebook");
+
+=item member
+
+An array of members of the group
+
+ foreach my $member (@{ $group->member }) {
+   print $member->full_name . " is a member of the group.\n";
+ }
 
 =back
 

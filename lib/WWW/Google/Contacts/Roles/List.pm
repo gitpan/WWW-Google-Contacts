@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.16';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.17';
 }
 
 use Moose::Role;
@@ -9,6 +9,7 @@ use MooseX::Types::Moose qw( ArrayRef Int );
 use Carp qw( croak );
 use XML::Simple ();
 use URI::Escape;
+use Perl6::Junction qw( any );
 
 requires 'baseurl', 'element_class';
 
@@ -62,7 +63,15 @@ sub search {
         $obj->set_from_server($elem);
         foreach my $key ( keys %{$search} ) {
             next ELEM unless ( defined $obj->$key );
-            next ELEM unless ( $obj->$key eq $search->{$key} );
+            if ( ref( $obj->$key ) and ref( $obj->$key ) eq 'ARRAY' ) {
+                my $search_field = $obj->$key->[0]->search_field;
+                next ELEM unless ( defined $search_field );
+                my @values = map { $_->$search_field } @{ $obj->$key };
+                next ELEM unless ( any(@values) eq $search->{$key} );
+            }
+            else {
+                next ELEM unless ( $obj->$key eq $search->{$key} );
+            }
         }
         push @{$to_ret}, $obj;
     }

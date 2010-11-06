@@ -27,9 +27,10 @@ my %WriteMakefileArgs = (
     'MooseX::Singleton' => '0.25',
     'MooseX::Types' => '0',
     'Net::Google::AuthSub' => '0',
+    'Perl6::Junction' => '0',
     'XML::Simple' => '0'
   },
-  'VERSION' => '0.16',
+  'VERSION' => '0.17',
   'test' => {
     'TESTS' => 't/*.t'
   }

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::PhoneNumber;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::PhoneNumber::VERSION = '0.16';
+    $WWW::Google::Contacts::Type::PhoneNumber::VERSION = '0.17';
 }
 
 use Moose;

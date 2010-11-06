@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.16';
+    $WWW::Google::Contacts::Contact::VERSION = '0.17';
 }
 
 use Moose;
@@ -384,6 +384,11 @@ sub add_phone_number {
 sub add_email {
     my ( $self, $email ) = @_;
     push @{ $self->email }, to_Email($email);
+}
+
+sub add_user_defined {
+    my ( $self, $user_def ) = @_;
+    push @{ $self->user_defined }, to_UserDefined($user_def);
 }
 
 no Moose;

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::GroupMembership;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::GroupMembership::VERSION = '0.16';
+    $WWW::Google::Contacts::Type::GroupMembership::VERSION = '0.17';
 }
 
 use Moose;
@@ -18,6 +18,10 @@ has href => (
     predicate => 'has_href',
     required  => 1,
 );
+
+sub search_field {
+    return 'href';
+}
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

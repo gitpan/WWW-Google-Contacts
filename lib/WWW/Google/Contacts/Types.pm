@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Types;
 
 BEGIN {
-    $WWW::Google::Contacts::Types::VERSION = '0.16';
+    $WWW::Google::Contacts::Types::VERSION = '0.17';
 }
 
 use MooseX::Types -declare => [
@@ -297,6 +297,11 @@ subtype ArrayRefOfUserDefined, as ArrayRef [UserDefined];
 
 coerce ArrayRefOfUserDefined, from ArrayRef, via {
     [ map { to_UserDefined($_) } @{$_} ];
+}, from HashRef, via {
+    my $ref = $_;
+    return [ to_UserDefined($ref) ] if ( defined $ref->{key} );
+    [ map { to_UserDefined( { key => $_, value => $ref->{$_}{value} } ) }
+          keys %{$ref} ];
 }, from Any, via { [ to_UserDefined($_) ] };
 
 class_type Website, { class => 'WWW::Google::Contacts::Type::Website' };
