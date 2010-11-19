@@ -1,12 +1,12 @@
 package WWW::Google::Contacts::Roles::CRUD;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::CRUD::VERSION = '0.17';
+    $WWW::Google::Contacts::Roles::CRUD::VERSION = '0.18';
 }
 
 use Moose::Role;
 use Carp qw( croak );
-use XML::Simple ();
+use WWW::Google::Contacts::Data;
 
 requires 'create_url';
 
@@ -23,9 +23,7 @@ sub as_xml {
             %{ $self->to_xml_hashref },
         },
     };
-    my $xmls = XML::Simple->new;
-
-    my $xml = $xmls->XMLout( $entry, KeepRoot => 1 );
+    my $xml = WWW::Google::Contacts::Data->encode_xml($entry);
     return $xml;
 }
 
@@ -46,8 +44,7 @@ sub create {
     my $res =
       $self->server->post( $self->create_url, undef, 'application/atom+xml',
         $xml );
-    my $xmls = XML::Simple->new;
-    my $data = $xmls->XMLin( $res->content, SuppressEmpty => undef );
+    my $data = WWW::Google::Contacts::Data->decode_xml( $res->content );
     $self->set_from_server($data);
     1;
 }
@@ -57,8 +54,7 @@ sub retrieve {
     croak "No id set" unless $self->id;
 
     my $res  = $self->server->get( $self->id );
-    my $xmls = XML::Simple->new;
-    my $data = $xmls->XMLin( $res->content, SuppressEmpty => undef );
+    my $data = WWW::Google::Contacts::Data->decode_xml( $res->content );
     $self->raw_data_for_backwards_compability($data);
     $self->set_from_server($data);
     $self;
