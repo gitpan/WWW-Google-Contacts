@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Group;
 
 BEGIN {
-    $WWW::Google::Contacts::Group::VERSION = '0.18';
+    $WWW::Google::Contacts::Group::VERSION = '0.19';
 }
 
 use Moose;
@@ -25,6 +25,16 @@ has id => (
     predicate => 'has_id',
     traits    => ['XmlField'],
     xml_key   => 'id',
+);
+
+has etag => (
+    isa            => Str,
+    is             => 'ro',
+    writer         => '_set_etag',
+    predicate      => 'has_etag',
+    traits         => ['XmlField'],
+    xml_key        => 'gd:etag',
+    include_in_xml => 0,              # This is set in HTTP headers
 );
 
 has category => (

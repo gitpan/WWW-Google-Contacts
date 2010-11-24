@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Birthday;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Birthday::VERSION = '0.18';
+    $WWW::Google::Contacts::Type::Birthday::VERSION = '0.19';
 }
 
 use Moose;

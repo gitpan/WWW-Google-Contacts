@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Types;
 
 BEGIN {
-    $WWW::Google::Contacts::Types::VERSION = '0.18';
+    $WWW::Google::Contacts::Types::VERSION = '0.19';
 }
 
 use MooseX::Types -declare => [
@@ -28,6 +28,7 @@ use MooseX::Types -declare => [
       UserDefined     ArrayRefOfUserDefined
       Website         ArrayRefOfWebsite
       Photo
+      Group
       )
 ];
 
@@ -56,6 +57,13 @@ use WWW::Google::Contacts::Type::Priority;
 use WWW::Google::Contacts::Type::Relation;
 use WWW::Google::Contacts::Type::UserDefined;
 use WWW::Google::Contacts::Type::Website;
+
+class_type Group, { class => 'WWW::Google::Contacts::Group' };
+
+coerce Group, from HashRef, via {
+    require WWW::Google::Contacts::Group;
+    WWW::Google::Contacts::Group->new($_);
+};
 
 class_type Category, { class => 'WWW::Google::Contacts::Type::Category' };
 
@@ -219,7 +227,9 @@ coerce GroupMembership,
   from HashRef,
   via { WWW::Google::Contacts::Type::GroupMembership->new($_) },
   from Str,
-  via { WWW::Google::Contacts::Type::GroupMembership->new( href => $_ ) };
+  via { WWW::Google::Contacts::Type::GroupMembership->new( href => $_ ) },
+  from Group,
+  via { WWW::Google::Contacts::Type::GroupMembership->new( href => $_->id ) };
 
 subtype ArrayRefOfGroupMembership, as ArrayRef [GroupMembership];
 
