@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::ContactEvent;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::ContactEvent::VERSION = '0.19';
+    $WWW::Google::Contacts::Type::ContactEvent::VERSION = '0.20';
 }
 
 use Moose;
@@ -19,6 +19,14 @@ has type => (
     predicate => 'has_type',
 );
 
+has label => (
+    isa       => Str,
+    is        => 'rw',
+    traits    => ['XmlField'],
+    xml_key   => 'label',
+    predicate => 'has_label',
+);
+
 has when => (
     isa       => When,
     is        => 'rw',
@@ -26,6 +34,7 @@ has when => (
     xml_key   => 'gd:when',
     predicate => 'has_when',
     coerce    => 1,
+    required  => 1,
 );
 
 no Moose;

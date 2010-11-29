@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.19';
+    $WWW::Google::Contacts::Contact::VERSION = '0.20';
 }
 
 use Moose;
@@ -394,6 +394,14 @@ sub add_user_defined {
 sub add_group_membership {
     my ( $self, $group ) = @_;
     push @{ $self->group_membership }, to_GroupMembership($group);
+}
+
+sub add_event {
+    my ( $self, $event ) = @_;
+    unless ( $self->has_event ) {
+        $self->event( [] );
+    }
+    push @{ $self->event }, to_ContactEvent($event);
 }
 
 sub groups {

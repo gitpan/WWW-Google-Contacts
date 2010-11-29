@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Server;
 
 BEGIN {
-    $WWW::Google::Contacts::Server::VERSION = '0.19';
+    $WWW::Google::Contacts::Server::VERSION = '0.20';
 }
 
 use Moose;
@@ -89,8 +89,8 @@ sub put {
     $headers{'X-HTTP-Method-Override'} = 'PUT';
     my $res = $self->ua->post( $id, %headers, Content => $content );
     unless ( $res->is_success ) {
-
-        #use Data::Dumper; print Dumper $res;
+        use Data::Dumper;
+        print Dumper $res;
         croak "PUT failed: " . $res->status_line;
     }
     return $res;
