@@ -1,7 +1,7 @@
 package WWW::Google::Contacts;
 
 BEGIN {
-    $WWW::Google::Contacts::VERSION = '0.20';
+    $WWW::Google::Contacts::VERSION = '0.21';
 }
 
 # ABSTRACT: Google Contacts Data API
@@ -99,6 +99,7 @@ sub groups {
 
 sub login {
     my ( $self, $email, $pass ) = @_;
+    warn "This method is deprecated and will be removed shortly";
     $self->email($email);
     $self->pass($pass);
     my $server = WWW::Google::Contacts::Server->new(
@@ -109,6 +110,7 @@ sub login {
 
 sub create_contact {
     my $self = shift;
+    warn "This method is deprecated and will be removed shortly";
     my $data = scalar @_ % 2 ? shift : {@_};
 
     my $contact = $self->new_contact;
@@ -153,6 +155,7 @@ sub _create_or_update_contact {
 sub get_contacts {
     my $self = shift;
 
+    warn "This method is deprecated and will be removed shortly";
     my $list = $self->contacts;
     my @contacts;
     foreach my $c ( @{ $list->elements } ) {
@@ -171,6 +174,7 @@ sub get_contacts {
 sub get_contact {
     my ( $self, $id ) = @_;
 
+    warn "This method is deprecated and will be removed shortly";
     my $contact = $self->new_contact( id => $id )->retrieve;
     my $data = $contact->raw_data_for_backwards_compability;
     $data->{name}                = $data->{'gd:name'};
@@ -182,6 +186,7 @@ sub get_contact {
 sub update_contact {
     my ( $self, $id, $contact ) = @_;
 
+    warn "This method is deprecated and will be removed shortly";
     my $c = $self->new_contact( id => $id )->retrieve;
     return $self->_create_or_update_contact( $c, $contact );
 }
@@ -189,12 +194,14 @@ sub update_contact {
 sub delete_contact {
     my ( $self, $id ) = @_;
 
+    warn "This method is deprecated and will be removed shortly";
     $self->new_contact( id => $id )->delete;
 }
 
 sub get_groups {
     my $self = shift;
 
+    warn "This method is deprecated and will be removed shortly";
     my $list = $self->groups;
     my @groups;
     foreach my $d ( @{ $list->elements } ) {
@@ -218,6 +225,7 @@ sub get_groups {
 sub get_group {
     my ( $self, $id ) = @_;
 
+    warn "This method is deprecated and will be removed shortly";
     my $group = $self->new_group( id => $id )->retrieve;
     my $data = $group->raw_data_for_backwards_compability;
     return $data;
@@ -237,6 +245,7 @@ sub create_group {
     my $self = shift;
     my $data = scalar @_ % 2 ? shift : {@_};
 
+    warn "This method is deprecated and will be removed shortly";
     my $group = $self->new_group;
     return $self->_create_or_update_group( $group, $data );
 }
@@ -244,6 +253,7 @@ sub create_group {
 sub update_group {
     my ( $self, $id, $args ) = @_;
 
+    warn "This method is deprecated and will be removed shortly";
     my $g = $self->new_group( id => $id )->retrieve;
     return $self->_create_or_update_group( $g, $args );
 }
@@ -251,6 +261,7 @@ sub update_group {
 sub delete_group {
     my ( $self, $id ) = @_;
 
+    warn "This method is deprecated and will be removed shortly";
     $self->new_group( id => $id )->delete;
 }
 
@@ -471,8 +482,6 @@ John Clyde - who shared his code about Contacts API with Fayland
 =item More POD
 
 =item Unit tests. Very lame right now
-
-=item Complete link between contact - group. halfway there
 
 =item Images
 

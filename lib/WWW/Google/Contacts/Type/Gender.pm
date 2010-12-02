@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Gender;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Gender::VERSION = '0.20';
+    $WWW::Google::Contacts::Type::Gender::VERSION = '0.21';
 }
 
 use Moose;
