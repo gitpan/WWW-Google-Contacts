@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::InternalTypes;
 
 BEGIN {
-    $WWW::Google::Contacts::InternalTypes::VERSION = '0.21';
+    $WWW::Google::Contacts::InternalTypes::VERSION = '0.22';
 }
 
 use MooseX::Types -declare => [
@@ -9,10 +9,17 @@ use MooseX::Types -declare => [
       XmlBool
       Rel
       When
+      Method
       )
 ];
 
-use MooseX::Types::Moose qw(Str Bool HashRef);
+use MooseX::Types::Moose qw(Str Bool HashRef CodeRef Any);
+
+subtype Method, as CodeRef;
+
+coerce Method, from Any, via {
+    sub { return $_ }
+};
 
 class_type Rel, { class => 'WWW::Google::Contacts::Type::Rel' };
 

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Base;
 
 BEGIN {
-    $WWW::Google::Contacts::Base::VERSION = '0.21';
+    $WWW::Google::Contacts::Base::VERSION = '0.22';
 }
 
 use Moose;
@@ -37,7 +37,8 @@ sub to_xml_hashref {
 
     my $to_return = {};
     foreach my $attr ( $self->xml_attributes ) {
-        next unless $attr->include_in_xml;
+        my $incl = $attr->include_in_xml;
+        next unless $self->$incl;
 
         my $predicate = $attr->predicate;
 

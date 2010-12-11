@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.21';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.22';
 }
 
 use Moose::Role;
@@ -101,7 +101,7 @@ sub _build_elements {
     my $res     = $self->server->get($url);
     my $content = $res->content;
     my $data    = WWW::Google::Contacts::Data->decode_xml($content);
-    my $array   = $data->{entry};
+    my $array   = $data->{entry} || [];
 
     #use Data::Dumper;
     #print Dumper $array->[0];

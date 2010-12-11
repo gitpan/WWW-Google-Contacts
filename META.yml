@@ -17,6 +17,7 @@ requires:
   File::Slurp: 0
   LWP::UserAgent: 0
   Moose: 0
+  MooseX::Role::Parameterized: 0
   MooseX::Singleton: 0.25
   MooseX::Types: 0
   Net::Google::AuthSub: 0
@@ -24,4 +25,4 @@ requires:
   XML::Simple: 0
 resources:
   repository: http://github.com/merixzon/www-google-contacts
-version: 0.21
+version: 0.22

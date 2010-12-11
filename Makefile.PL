@@ -24,13 +24,14 @@ my %WriteMakefileArgs = (
     'File::Slurp' => '0',
     'LWP::UserAgent' => '0',
     'Moose' => '0',
+    'MooseX::Role::Parameterized' => '0',
     'MooseX::Singleton' => '0.25',
     'MooseX::Types' => '0',
     'Net::Google::AuthSub' => '0',
     'Perl6::Junction' => '0',
     'XML::Simple' => '0'
   },
-  'VERSION' => '0.21',
+  'VERSION' => '0.22',
   'test' => {
     'TESTS' => 't/*.t'
   }
