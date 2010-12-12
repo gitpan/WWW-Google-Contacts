@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::GroupMembership;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::GroupMembership::VERSION = '0.22';
+    $WWW::Google::Contacts::Type::GroupMembership::VERSION = '0.23';
 }
 
 use Moose;

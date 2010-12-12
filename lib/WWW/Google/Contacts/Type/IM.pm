@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::IM;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::IM::VERSION = '0.22';
+    $WWW::Google::Contacts::Type::IM::VERSION = '0.23';
 }
 
 use Moose;
@@ -11,8 +11,10 @@ use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 
 extends 'WWW::Google::Contacts::Type::Base';
 
-with 'WWW::Google::Contacts::Roles::HasTypeAndLabel' =>
-  { valid_types => [qw( work home netmeeting )], };
+with 'WWW::Google::Contacts::Roles::HasTypeAndLabel' => {
+    valid_types  => [qw( work home netmeeting other )],
+    default_type => 'other',
+};
 
 has protocol => (
     isa       => Rel,

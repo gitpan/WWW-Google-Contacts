@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Sensitivity;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Sensitivity::VERSION = '0.22';
+    $WWW::Google::Contacts::Type::Sensitivity::VERSION = '0.23';
 }
 
 use Moose;

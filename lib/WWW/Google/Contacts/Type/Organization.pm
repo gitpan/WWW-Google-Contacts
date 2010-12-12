@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Organization;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Organization::VERSION = '0.22';
+    $WWW::Google::Contacts::Type::Organization::VERSION = '0.23';
 }
 
 use Moose;
@@ -11,8 +11,10 @@ use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 
 extends 'WWW::Google::Contacts::Type::Base';
 
-with 'WWW::Google::Contacts::Roles::HasTypeAndLabel' =>
-  { valid_types => [qw( work )], };
+with 'WWW::Google::Contacts::Roles::HasTypeAndLabel' => {
+    valid_types  => [qw( work other )],
+    default_type => 'work',
+};
 
 has department => (
     isa        => Str,

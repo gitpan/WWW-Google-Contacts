@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::HasTypeAndLabel;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::HasTypeAndLabel::VERSION = '0.22';
+    $WWW::Google::Contacts::Roles::HasTypeAndLabel::VERSION = '0.23';
 }
 
 use MooseX::Role::Parameterized;
@@ -14,9 +14,15 @@ parameter valid_types => (
     required => 1,
 );
 
+parameter default_type => (
+    isa      => Str,
+    required => 1,
+);
+
 role {
-    my $param       = shift;
-    my $valid_types = $param->valid_types;
+    my $param        = shift;
+    my $valid_types  = $param->valid_types;
+    my $default_type = $param->default_type;
 
     has type => (
         isa            => Rel,
@@ -25,8 +31,9 @@ role {
         xml_key        => 'rel',
         predicate      => 'has_type',
         trigger        => \&_type_set,
-        coerce         => 1,
         include_in_xml => sub { return $_[0]->has_valid_type },
+        default        => sub { to_Rel($default_type) },
+        coerce         => 1,
     );
 
     has label => (
@@ -37,6 +44,7 @@ role {
         trigger        => \&_label_set,
         predicate      => 'has_label',
         include_in_xml => sub { return !$_[0]->has_valid_type },
+        default        => sub { $default_type },
     );
 
     method has_valid_type => sub {

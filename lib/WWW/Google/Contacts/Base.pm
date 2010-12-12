@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Base;
 
 BEGIN {
-    $WWW::Google::Contacts::Base::VERSION = '0.22';
+    $WWW::Google::Contacts::Base::VERSION = '0.23';
 }
 
 use Moose;
@@ -49,6 +49,8 @@ sub to_xml_hashref {
 
         my $name = $attr->name;
         my $val  = $self->$name;
+
+        next if ( not $val );
 
         $to_return->{ $attr->xml_key } =
           ( blessed($val) and $val->can("to_xml_hashref") )

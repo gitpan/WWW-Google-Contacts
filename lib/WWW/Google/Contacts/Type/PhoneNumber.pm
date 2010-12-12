@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::PhoneNumber;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::PhoneNumber::VERSION = '0.22';
+    $WWW::Google::Contacts::Type::PhoneNumber::VERSION = '0.23';
 }
 
 use Moose;
@@ -18,6 +18,7 @@ with 'WWW::Google::Contacts::Roles::HasTypeAndLabel' => {
           work work_fax work_mobile work_pager
           )
     ],
+    default_type => 'mobile',
 };
 
 has value => (
