@@ -20,6 +20,7 @@ my %WriteMakefileArgs = (
   'LICENSE' => 'perl',
   'NAME' => 'WWW::Google::Contacts',
   'PREREQ_PM' => {
+    'Class::MOP' => '1.09',
     'Crypt::SSLeay' => '0',
     'File::Slurp' => '0',
     'LWP::UserAgent' => '0',
@@ -31,7 +32,7 @@ my %WriteMakefileArgs = (
     'Perl6::Junction' => '0',
     'XML::Simple' => '0'
   },
-  'VERSION' => '0.23',
+  'VERSION' => '0.24',
   'test' => {
     'TESTS' => 't/*.t'
   }

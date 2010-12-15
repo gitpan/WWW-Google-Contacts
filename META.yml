@@ -13,6 +13,7 @@ meta-spec:
   version: 1.4
 name: WWW-Google-Contacts
 requires:
+  Class::MOP: 1.09
   Crypt::SSLeay: 0
   File::Slurp: 0
   LWP::UserAgent: 0
@@ -25,4 +26,4 @@ requires:
   XML::Simple: 0
 resources:
   repository: http://github.com/merixzon/www-google-contacts
-version: 0.23
+version: 0.24
