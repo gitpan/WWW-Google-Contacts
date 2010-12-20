@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.24';
+    $WWW::Google::Contacts::Contact::VERSION = '0.25';
 }
 
 use Moose;
@@ -31,6 +31,7 @@ use WWW::Google::Contacts::Types qw(
   Photo
 );
 use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
+use Carp;
 
 sub create_url { 'http://www.google.com/m8/feeds/contacts/default/full' }
 
@@ -378,37 +379,55 @@ has website => (
 # Stolen from Meta/Attribute/Native/MethodProvider/Array.pm, need coercion
 sub add_phone_number {
     my ( $self, $phone ) = @_;
+    $self->phone_number( [] ) unless $self->has_phone_number;
     push @{ $self->phone_number }, to_PhoneNumber($phone);
 }
 
 sub add_email {
     my ( $self, $email ) = @_;
+    $self->email( [] ) unless $self->has_email;
     push @{ $self->email }, to_Email($email);
 }
 
 sub add_user_defined {
     my ( $self, $user_def ) = @_;
+    $self->user_defined( [] ) unless $self->has_user_defined;
     push @{ $self->user_defined }, to_UserDefined($user_def);
-}
-
-sub add_group_membership {
-    my ( $self, $group ) = @_;
-    push @{ $self->group_membership }, to_GroupMembership($group);
 }
 
 sub add_event {
     my ( $self, $event ) = @_;
-    unless ( $self->has_event ) {
-        $self->event( [] );
-    }
+    $self->event( [] ) unless $self->has_event;
     push @{ $self->event }, to_ContactEvent($event);
+}
+
+sub add_group_membership {
+    my ( $self, $group ) = @_;
+    $self->group_membership( [] ) unless $self->has_group_membership;
+    if ( not ref($group) and $group !~ m{^http} ) {
+
+# It's probably a group name.
+# As it stands right now, can't deal with this in the coercion, need access to server obj
+        my @groups =
+          WWW::Google::Contacts::GroupList->new( server => $self->server )
+          ->search( { title => $group } );
+        if ( scalar @groups == 0 ) {
+            croak "Can not find a group with name: $group";
+        }
+        elsif ( scalar @groups > 1 ) {
+            croak
+"Can not add group membership. Found several groups with group name: $group";
+        }
+        $group = shift @groups;
+    }
+    push @{ $self->group_membership }, to_GroupMembership($group);
 }
 
 sub groups {
     my $self = shift;
 
-    my $to_ret     = [];
-    my $membership = $self->group_membership;
+    my $to_ret = [];
+    my $membership = $self->group_membership || [];
     foreach my $member ( @{$membership} ) {
         push @{$to_ret},
           WWW::Google::Contacts::Group->new(
@@ -811,6 +830,29 @@ Birthday date, given in format YYYY-MM-DD (with the year), or --MM-DD (without t
 
 Sorry, haven't documented all attributes yet :(
 
+=head1 INTERACTION WITH GROUPS
+
+Contacts can belong to 0 or more groups. This section describes how to get and set group memberships.
+
+=head2 $contact->groups
+
+Returns an array reference of all groups, as L<WWW::Google::Contacts::Group> objects.
+
+=head2 $contact->add_group_membership( group )
+
+The I<group> argument can either be:
+
+=over 4
+
+=item An L<WWW::Google::Contacts::Group> object
+
+=item The ID of a group, as a URL
+
+=item The name of a group
+
+=back
+
+Do note that the group has to exist on the Google servers before you can add this membership.
 
 =head1 AUTHOR
 
