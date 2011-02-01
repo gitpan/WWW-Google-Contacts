@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.25';
+    $WWW::Google::Contacts::Contact::VERSION = '0.26';
 }
 
 use Moose;
@@ -55,7 +55,7 @@ has etag => (
     predicate      => 'has_etag',
     traits         => ['XmlField'],
     xml_key        => 'gd:etag',
-    include_in_xml => 0,              # This is set in HTTP headers
+    include_in_xml => sub { 0 },      # This is set in HTTP headers
 );
 
 has link => (
@@ -63,7 +63,7 @@ has link => (
     trigger        => \&_set_link,
     traits         => ['XmlField'],
     xml_key        => 'link',
-    include_in_xml => 0,
+    include_in_xml => sub { 0 },
 );
 
 # What to do with different link types
