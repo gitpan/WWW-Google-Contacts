@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Priority;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Priority::VERSION = '0.27';
+    $WWW::Google::Contacts::Type::Priority::VERSION = '0.28';
 }
 
 use Moose;

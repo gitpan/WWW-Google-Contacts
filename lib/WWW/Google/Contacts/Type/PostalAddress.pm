@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::PostalAddress;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::PostalAddress::VERSION = '0.27';
+    $WWW::Google::Contacts::Type::PostalAddress::VERSION = '0.28';
 }
 
 use Moose;

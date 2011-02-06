@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Types;
 
 BEGIN {
-    $WWW::Google::Contacts::Types::VERSION = '0.27';
+    $WWW::Google::Contacts::Types::VERSION = '0.28';
 }
 
 use MooseX::Types -declare => [
