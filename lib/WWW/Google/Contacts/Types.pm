@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Types;
 
 BEGIN {
-    $WWW::Google::Contacts::Types::VERSION = '0.28';
+    $WWW::Google::Contacts::Types::VERSION = '0.29';
 }
 
 use MooseX::Types -declare => [
@@ -274,7 +274,11 @@ class_type Priority, { class => 'WWW::Google::Contacts::Type::Priority' };
 
 coerce Priority,
   from Str,
-  via { WWW::Google::Contacts::Type::Priority->new( type => $_ ) };
+  via { WWW::Google::Contacts::Type::Priority->new( type => $_ ) },
+  from Undef,
+  via { WWW::Google::Contacts::Type::Priority->new( type => "normal" ) },
+  from HashRef,
+  via { WWW::Google::Contacts::Type::Priority->new( type => $_->{rel} ) };
 
 class_type Relation, { class => 'WWW::Google::Contacts::Type::Relation' };
 

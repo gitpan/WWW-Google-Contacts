@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Priority;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Priority::VERSION = '0.28';
+    $WWW::Google::Contacts::Type::Priority::VERSION = '0.29';
 }
 
 use Moose;
@@ -12,14 +12,14 @@ use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 extends 'WWW::Google::Contacts::Type::Base';
 
 has type => (
-    isa       => Rel,
-    is        => 'rw',
-    traits    => ['XmlField'],
-    xml_key   => 'rel',
-    predicate => 'has_type',
-    coerce    => 1,
-    required  => 1,
+    isa      => Str,
+    is       => 'rw',
+    traits   => ['XmlField'],
+    xml_key  => 'rel',
+    required => 1,
 );
+
+sub value { $_[0]->type }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;
