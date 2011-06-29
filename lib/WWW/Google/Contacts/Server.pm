@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Server;
 
 BEGIN {
-    $WWW::Google::Contacts::Server::VERSION = '0.29';
+    $WWW::Google::Contacts::Server::VERSION = '0.30';
 }
 
 use Moose;
