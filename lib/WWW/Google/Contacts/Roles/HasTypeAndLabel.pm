@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::HasTypeAndLabel;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::HasTypeAndLabel::VERSION = '0.30';
+    $WWW::Google::Contacts::Roles::HasTypeAndLabel::VERSION = '0.31';
 }
 
 use MooseX::Role::Parameterized;

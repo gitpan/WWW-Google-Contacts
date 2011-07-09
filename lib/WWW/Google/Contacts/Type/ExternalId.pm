@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::ExternalId;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::ExternalId::VERSION = '0.30';
+    $WWW::Google::Contacts::Type::ExternalId::VERSION = '0.31';
 }
 
 use Moose;

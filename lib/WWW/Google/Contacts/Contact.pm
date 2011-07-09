@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Contact;
 
 BEGIN {
-    $WWW::Google::Contacts::Contact::VERSION = '0.30';
+    $WWW::Google::Contacts::Contact::VERSION = '0.31';
 }
 
 use Moose;
@@ -338,6 +338,7 @@ has sensitivity => (
     traits     => ['XmlField'],
     xml_key    => 'gContact:sensitivity',
     is_element => 1,
+    coerce     => 1,
 );
 
 has shortname => (
@@ -399,6 +400,12 @@ sub add_event {
     my ( $self, $event ) = @_;
     $self->event( [] ) unless $self->has_event;
     push @{ $self->event }, to_ContactEvent($event);
+}
+
+sub add_website {
+    my ( $self, $website ) = @_;
+    $self->website( [] ) unless $self->has_website;
+    push @{ $self->website }, to_Website($website);
 }
 
 sub add_group_membership {
