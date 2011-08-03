@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::UserDefined;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::UserDefined::VERSION = '0.31';
+    $WWW::Google::Contacts::Type::UserDefined::VERSION = '0.32';
 }
 
 use Moose;

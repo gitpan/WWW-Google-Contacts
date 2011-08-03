@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::InternalTypes;
 
 BEGIN {
-    $WWW::Google::Contacts::InternalTypes::VERSION = '0.31';
+    $WWW::Google::Contacts::InternalTypes::VERSION = '0.32';
 }
 
 use MooseX::Types -declare => [
@@ -9,6 +9,7 @@ use MooseX::Types -declare => [
       XmlBool
       Rel
       When
+      Where
       Method
       Country
       )
@@ -51,6 +52,16 @@ coerce When, from Str, via {
         start_time => $_->{startTime},
         defined $_->{endTime} ? ( end_time => $_->{endTime} ) : (),
     );
+};
+
+class_type Where, { class => 'WWW::Google::Contacts::Type::Where' };
+
+coerce Where, from Str, via {
+    require WWW::Google::Contacts::Type::Where;
+    WWW::Google::Contacts::Type::Where->new( value => $_ );
+}, from HashRef, via {
+    require WWW::Google::Contacts::Type::Where;
+    WWW::Google::Contacts::Type::Where->new( value => $_->{valueString} );
 };
 
 class_type Country, { class => 'WWW::Google::Contacts::Type::Country' };

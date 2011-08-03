@@ -1,25 +1,22 @@
-package WWW::Google::Contacts::Type::Priority;
+package WWW::Google::Contacts::Type::Where;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Priority::VERSION = '0.32';
+    $WWW::Google::Contacts::Type::Where::VERSION = '0.32';
 }
 
 use Moose;
 use MooseX::Types::Moose qw( Str );
-use WWW::Google::Contacts::InternalTypes qw( Rel );
 use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 
 extends 'WWW::Google::Contacts::Type::Base';
 
-has type => (
+has value => (
     isa      => Str,
     is       => 'rw',
     traits   => ['XmlField'],
-    xml_key  => 'rel',
+    xml_key  => 'valueString',
     required => 1,
 );
-
-sub value { $_[0]->type }
 
 no Moose;
 __PACKAGE__->meta->make_immutable;

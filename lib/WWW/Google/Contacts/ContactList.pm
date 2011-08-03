@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::ContactList;
 
 BEGIN {
-    $WWW::Google::Contacts::ContactList::VERSION = '0.31';
+    $WWW::Google::Contacts::ContactList::VERSION = '0.32';
 }
 
 use Moose;
