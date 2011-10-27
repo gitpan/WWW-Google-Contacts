@@ -1,11 +1,13 @@
 package WWW::Google::Contacts::Base;
 
 BEGIN {
-    $WWW::Google::Contacts::Base::VERSION = '0.32';
+    $WWW::Google::Contacts::Base::VERSION = '0.33';
 }
 
 use Moose;
 use Scalar::Util qw( blessed );
+use Try::Tiny;
+use Data::Dumper;
 
 sub xml_attributes {
     my $self = shift;
@@ -67,7 +69,6 @@ sub to_xml_hashref {
 sub set_from_server {
     my ( $self, $data ) = @_;
 
-    #use Data::Dumper; print Dumper { data => $data };
     foreach my $attr ( $self->xml_attributes ) {
         if ( defined $data->{ $attr->xml_key } ) {
             if ( my $writer = $attr->writer ) {
@@ -77,7 +78,22 @@ sub set_from_server {
             }
             else {
                 my $name = $attr->name;
-                $self->$name( $data->{ $attr->xml_key } );
+                try {
+                    $self->$name( $data->{ $attr->xml_key } );
+                }
+                catch {
+                    my @err = split m{\n}, $_;
+                    print "\nERROR - Failed to set attribute\n";
+                    print "-------------------------------\n";
+                    print "Attribute: " . $name . "\n";
+                    print "Value: " . Dumper $data->{ $attr->xml_key };
+                    print "Error: " . $err[0] . "\n";
+                    print
+"\nPlease include the above in an email bug report to magnus\@erixzon.com\n";
+                    print
+"Remove personal content in the 'value' hash, but please leave the structure intact.\n\n";
+                    die "\n";
+                };
             }
         }
     }

@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::Language;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::Language::VERSION = '0.32';
+    $WWW::Google::Contacts::Type::Language::VERSION = '0.33';
 }
 
 use Moose;
@@ -16,7 +16,14 @@ has code => (
     traits    => ['XmlField'],
     xml_key   => 'code',
     predicate => 'has_code',
-    required  => 1,
+);
+
+has label => (
+    isa       => Str,
+    is        => 'rw',
+    traits    => ['XmlField'],
+    xml_key   => 'label',
+    predicate => 'has_label',
 );
 
 no Moose;

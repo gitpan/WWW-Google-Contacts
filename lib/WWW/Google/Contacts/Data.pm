@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Data;
 
 BEGIN {
-    $WWW::Google::Contacts::Data::VERSION = '0.32';
+    $WWW::Google::Contacts::Data::VERSION = '0.33';
 }
 
 use strict;

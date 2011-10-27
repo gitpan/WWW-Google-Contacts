@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Type::CalendarLink;
 
 BEGIN {
-    $WWW::Google::Contacts::Type::CalendarLink::VERSION = '0.32';
+    $WWW::Google::Contacts::Type::CalendarLink::VERSION = '0.33';
 }
 
 use Moose;

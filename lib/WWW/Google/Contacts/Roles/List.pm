@@ -1,7 +1,7 @@
 package WWW::Google::Contacts::Roles::List;
 
 BEGIN {
-    $WWW::Google::Contacts::Roles::List::VERSION = '0.32';
+    $WWW::Google::Contacts::Roles::List::VERSION = '0.33';
 }
 
 use Moose::Role;

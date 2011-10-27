@@ -55,6 +55,7 @@ t/22.change_email_type.t
 t/23.set_contact_values.t
 t/24.set_priority.t
 t/25.set_organization.t
+t/26.language.t
 t/50.types.t
 t/60.getting_user_defined.t
 t/61.utf8.t

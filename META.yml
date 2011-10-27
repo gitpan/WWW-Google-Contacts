@@ -23,7 +23,8 @@ requires:
   MooseX::Types: 0
   Net::Google::AuthSub: 0
   Perl6::Junction: 0
+  Try::Tiny: 0
   XML::Simple: 0
 resources:
   repository: http://github.com/merixzon/www-google-contacts
-version: 0.32
+version: 0.33
