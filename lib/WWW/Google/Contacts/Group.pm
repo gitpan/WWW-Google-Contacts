@@ -1,7 +1,6 @@
 package WWW::Google::Contacts::Group;
-
-BEGIN {
-    $WWW::Google::Contacts::Group::VERSION = '0.33';
+{
+    $WWW::Google::Contacts::Group::VERSION = '0.34';
 }
 
 use Moose;

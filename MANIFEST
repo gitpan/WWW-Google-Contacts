@@ -64,3 +64,4 @@ t/9999.deprecated.get_contacts.t
 t/9999.deprecated.get_groups.t
 t/release-pod-coverage.t
 t/release-pod-syntax.t
+t/yomi_name.t

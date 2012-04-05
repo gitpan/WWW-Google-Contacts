@@ -4,9 +4,9 @@ author:
   - 'Magnus Erixzon <magnus@erixzon.com>'
 build_requires: {}
 configure_requires:
-  ExtUtils::MakeMaker: 6.31
+  ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.102342, CPAN::Meta::Converter version 2.101670'
+generated_by: 'Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120630'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -26,5 +26,5 @@ requires:
   Try::Tiny: 0
   XML::Simple: 0
 resources:
-  repository: http://github.com/merixzon/www-google-contacts
-version: 0.33
+  repository: git://github.com/merixzon/www-google-contacts.git
+version: 0.34

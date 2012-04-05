@@ -1,7 +1,6 @@
 package WWW::Google::Contacts::InternalTypes;
-
-BEGIN {
-    $WWW::Google::Contacts::InternalTypes::VERSION = '0.33';
+{
+    $WWW::Google::Contacts::InternalTypes::VERSION = '0.34';
 }
 
 use MooseX::Types -declare => [
@@ -12,6 +11,7 @@ use MooseX::Types -declare => [
       Where
       Method
       Country
+      YomiStr
       )
 ];
 
@@ -72,4 +72,10 @@ coerce Country, from Str, via {
 }, from HashRef, via {
     require WWW::Google::Contacts::Type::Country;
     WWW::Google::Contacts::Type::Country->new($_);
+};
+
+subtype YomiStr, as Str;
+
+coerce YomiStr, from HashRef, via {
+    $_->{content};
 };
