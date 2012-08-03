@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Priority;
 {
-    $WWW::Google::Contacts::Type::Priority::VERSION = '0.34';
+    $WWW::Google::Contacts::Type::Priority::VERSION = '0.35';
 }
 
 use Moose;

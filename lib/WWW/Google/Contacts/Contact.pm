@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Contact;
 {
-    $WWW::Google::Contacts::Contact::VERSION = '0.34';
+    $WWW::Google::Contacts::Contact::VERSION = '0.35';
 }
 
 use Moose;
@@ -405,6 +405,12 @@ sub add_website {
     my ( $self, $website ) = @_;
     $self->website( [] ) unless $self->has_website;
     push @{ $self->website }, to_Website($website);
+}
+
+sub add_relation {
+    my ( $self, $relation ) = @_;
+    $self->relation( [] ) unless $self->has_relation;
+    push @{ $self->relation }, to_Relation($relation);
 }
 
 sub add_group_membership {

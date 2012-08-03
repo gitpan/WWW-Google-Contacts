@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Hobby;
 {
-    $WWW::Google::Contacts::Type::Hobby::VERSION = '0.34';
+    $WWW::Google::Contacts::Type::Hobby::VERSION = '0.35';
 }
 
 use Moose;

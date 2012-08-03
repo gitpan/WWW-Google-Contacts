@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::ContactEvent;
 {
-    $WWW::Google::Contacts::Type::ContactEvent::VERSION = '0.34';
+    $WWW::Google::Contacts::Type::ContactEvent::VERSION = '0.35';
 }
 
 use Moose;

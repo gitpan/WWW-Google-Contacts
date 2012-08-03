@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Name;
 {
-    $WWW::Google::Contacts::Type::Name::VERSION = '0.34';
+    $WWW::Google::Contacts::Type::Name::VERSION = '0.35';
 }
 
 use Moose;
@@ -59,13 +59,14 @@ has name_suffix => (
 );
 
 has full_name => (
-    isa        => Str,
+    isa        => YomiStr,
     is         => 'rw',
     traits     => ['XmlField'],
     xml_key    => 'gd:fullName',
     predicate  => 'has_full_name',
     trigger    => \&_full_name_set,
     is_element => 1,
+    coerce     => 1,
 );
 
 sub _full_name_set {

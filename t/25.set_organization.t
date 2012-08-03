@@ -37,6 +37,9 @@ foreach my $g (@groups) {
     );
     $member->update;
 
+    # If we fetch again instantly, we don't get the updated record :-/
+    sleep 5;
+
     # Now fetch this user again and ensure data is valid
     my $update = $google->contact( $member->id );
     my $org    = $update->organization->[0];
@@ -48,6 +51,9 @@ foreach my $g (@groups) {
 
     $member->organization(undef);
     $member->update;
+
+    # If we fetch again instantly, we don't get the updated record :-/
+    sleep 5;
 
     # Now fetch this user again and ensure data is valid
     $update = $google->contact( $member->id );

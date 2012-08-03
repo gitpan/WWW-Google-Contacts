@@ -6,7 +6,7 @@ build_requires: {}
 configure_requires:
   ExtUtils::MakeMaker: 6.30
 dynamic_config: 0
-generated_by: 'Dist::Zilla version 4.300009, CPAN::Meta::Converter version 2.120630'
+generated_by: 'Dist::Zilla version 4.300016, CPAN::Meta::Converter version 2.120921'
 license: perl
 meta-spec:
   url: http://module-build.sourceforge.net/META-spec-v1.4.html
@@ -19,7 +19,6 @@ requires:
   LWP::UserAgent: 0
   Moose: 0
   MooseX::Role::Parameterized: 0
-  MooseX::Singleton: 0.25
   MooseX::Types: 0
   Net::Google::AuthSub: 0
   Perl6::Junction: 0
@@ -27,4 +26,4 @@ requires:
   XML::Simple: 0
 resources:
   repository: git://github.com/merixzon/www-google-contacts.git
-version: 0.34
+version: 0.35

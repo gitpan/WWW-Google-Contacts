@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Rel;
 {
-    $WWW::Google::Contacts::Type::Rel::VERSION = '0.34';
+    $WWW::Google::Contacts::Type::Rel::VERSION = '0.35';
 }
 
 use Moose;
@@ -19,7 +19,7 @@ has name => (
 
 has uri => (
     isa        => Str,
-    is         => 'ro',
+    is         => 'rw',
     traits     => ['XmlField'],
     xml_key    => 'rel',
     predicate  => 'has_uri',

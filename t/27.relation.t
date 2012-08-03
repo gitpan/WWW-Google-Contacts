@@ -2,6 +2,8 @@
 use strict;
 use warnings;
 
+# INTEGRATION TEST
+
 ## NOTE -- This test relies on you having specific data in your google account
 # One group called "Test group", with at least one member
 
@@ -25,31 +27,44 @@ foreach my $g (@groups) {
     is( scalar @{ $g->member } > 0, 1, "Test group got members" );
     my $member = $g->member->[0];
 
-    $member->priority("high");
+    $member->relation(
+        {
+            label => 'sister',
+            value => 'Berit',
+        }
+    );
     $member->update;
 
     # If we fetch again instantly, we don't get the updated record :-/
     sleep 5;
 
     # Now fetch this user again and ensure data is valid
-    my $update = $google->contact( $member->id );
-    my $prio   = $update->priority->value;
-    ok( defined $prio, "Updated user got priority" );
-    is( $prio, "high", "...correct value" );
+    $member = $google->contact( $member->id );
+    my $rel = $member->relation->[0];
+    ok( defined $rel, "Updated user got relation" );
+    is( $rel->type->name, "sister", "...correct type" );
+    is( $rel->value,      "Berit",  "...correct value" );
+    $rel->label('Spammer');
+    $member->update;
 
-    $member = $update;
+    # If we fetch again instantly, we don't get the updated record :-/
+    sleep 5;
+    $member = $google->contact( $member->id );
+    $rel    = $member->relation->[0];
+    ok( defined $rel, "Updated user got relation" );
+    is( $rel->label, "Spammer", "...correct label" );
+    is( $rel->value, "Berit",   "...correct value" );
 
-    $member->priority(undef);
+    $member->relation(undef);
     $member->update;
 
     # If we fetch again instantly, we don't get the updated record :-/
     sleep 5;
 
     # Now fetch this user again and ensure data is valid
-    $update = $google->contact( $member->id );
-    $prio   = $update->priority->value;
-    ok( defined $prio, "Updated user got priority" );
-    is( $prio, "normal", "...correct, default value" );
+    $member = $google->contact( $member->id );
+    $rel    = $member->relation;
+    ok( !defined $rel, "Updated user got no relations" );
 }
 
 done_testing;

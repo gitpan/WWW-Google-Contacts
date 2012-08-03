@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Where;
 {
-    $WWW::Google::Contacts::Type::Where::VERSION = '0.34';
+    $WWW::Google::Contacts::Type::Where::VERSION = '0.35';
 }
 
 use Moose;
