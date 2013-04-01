@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Country;
 {
-    $WWW::Google::Contacts::Type::Country::VERSION = '0.35';
+    $WWW::Google::Contacts::Type::Country::VERSION = '0.36';
 }
 
 use Moose;

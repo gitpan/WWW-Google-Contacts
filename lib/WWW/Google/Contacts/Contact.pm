@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Contact;
 {
-    $WWW::Google::Contacts::Contact::VERSION = '0.35';
+    $WWW::Google::Contacts::Contact::VERSION = '0.36';
 }
 
 use Moose;
@@ -32,7 +32,11 @@ use WWW::Google::Contacts::Types qw(
 use WWW::Google::Contacts::Meta::Attribute::Trait::XmlField;
 use Carp;
 
-sub create_url { 'http://www.google.com/m8/feeds/contacts/default/full' }
+sub create_url {
+    my $self = shift;
+    return sprintf( "%s://www.google.com/m8/feeds/contacts/default/full",
+        $self->server->protocol );
+}
 
 extends 'WWW::Google::Contacts::Base';
 

@@ -16,8 +16,11 @@ plan skip_all =>
   'no TEST_GOOGLE_USERNAME or TEST_GOOGLE_PASSWORD set in the environment'
   unless $username and $password;
 
-my $google =
-  WWW::Google::Contacts->new( username => $username, password => $password );
+my $google = WWW::Google::Contacts->new(
+    username => $username,
+    password => $password,
+    protocol => "https"
+);
 isa_ok( $google, 'WWW::Google::Contacts' );
 
 my @groups = $google->groups->search( { title => "Test group" } );
@@ -25,7 +28,11 @@ foreach my $g (@groups) {
     is( scalar @{ $g->member } > 0, 1, "Test group got members" );
     my $member = $g->member->[0];
 
-    $member->language( { code => "en-US", } );
+    $member->language(
+        {
+            code => "en-US",
+        }
+    );
     $member->update;
 
     # If we fetch again instantly, we don't get the updated record :-/
@@ -37,7 +44,11 @@ foreach my $g (@groups) {
     ok( defined $lang, "Updated user got language" );
     is( $lang->code, "en-US", "...correct code" );
 
-    $member->language( { label => "Swedish", } );
+    $member->language(
+        {
+            label => "Swedish",
+        }
+    );
     $member->update;
 
     # If we fetch again instantly, we don't get the updated record :-/

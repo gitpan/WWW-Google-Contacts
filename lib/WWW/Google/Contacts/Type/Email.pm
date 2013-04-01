@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Email;
 {
-    $WWW::Google::Contacts::Type::Email::VERSION = '0.35';
+    $WWW::Google::Contacts::Type::Email::VERSION = '0.36';
 }
 
 use Moose;

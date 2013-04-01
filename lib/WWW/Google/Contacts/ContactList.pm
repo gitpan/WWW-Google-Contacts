@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::ContactList;
 {
-    $WWW::Google::Contacts::ContactList::VERSION = '0.35';
+    $WWW::Google::Contacts::ContactList::VERSION = '0.36';
 }
 
 use Moose;
@@ -10,7 +10,11 @@ extends 'WWW::Google::Contacts::Base';
 
 with 'WWW::Google::Contacts::Roles::List';
 
-sub baseurl       { 'http://www.google.com/m8/feeds/contacts/default' }
+sub baseurl {
+    my $self = shift;
+    return sprintf( "%s://www.google.com/m8/feeds/contacts/default",
+        $self->server->protocol );
+}
 sub element_class { 'WWW::Google::Contacts::Contact' }
 
 no Moose;
@@ -66,3 +70,4 @@ This is free software; you can redistribute it and/or modify it under
 the same terms as perl itself.
 
 =cut
+

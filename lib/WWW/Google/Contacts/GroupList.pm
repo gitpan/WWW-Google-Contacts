@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::GroupList;
 {
-    $WWW::Google::Contacts::GroupList::VERSION = '0.35';
+    $WWW::Google::Contacts::GroupList::VERSION = '0.36';
 }
 
 use Moose;
@@ -10,7 +10,11 @@ extends 'WWW::Google::Contacts::Base';
 
 with 'WWW::Google::Contacts::Roles::List';
 
-sub baseurl       { 'http://www.google.com/m8/feeds/groups/default' }
+sub baseurl {
+    my $self = shift;
+    return sprintf( "%s://www.google.com/m8/feeds/groups/default",
+        $self->server->protocol );
+}
 sub element_class { 'WWW::Google::Contacts::Group' }
 
 no Moose;

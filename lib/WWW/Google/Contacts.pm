@@ -1,6 +1,6 @@
 package WWW::Google::Contacts;
 {
-    $WWW::Google::Contacts::VERSION = '0.35';
+    $WWW::Google::Contacts::VERSION = '0.36';
 }
 
 # ABSTRACT: Google Contacts Data API
@@ -27,6 +27,12 @@ has password => (
     default => sub { $ENV{GOOGLE_PASSWORD} },
 );
 
+has protocol => (
+    isa     => 'Str',
+    is      => 'ro',
+    default => 'http',
+);
+
 has server => (
     isa        => 'Object',
     is         => 'ro',
@@ -45,6 +51,7 @@ sub _build_server {
         {
             username => $self->username,
             password => $self->password,
+            protocol => $self->protocol
         }
     );
 }
@@ -160,7 +167,7 @@ sub get_contacts {
     foreach my $c ( @{ $list->elements } ) {
         my $d = $c;
         ( $d->{id} ) =
-          map { $_->{href} }
+          map  { $_->{href} }
           grep { $_->{rel} eq 'self' } @{ $d->{link} };
         $d->{name}                = $d->{'gd:name'};
         $d->{email}               = $d->{'gd:email'};
@@ -206,7 +213,7 @@ sub get_groups {
     foreach my $d ( @{ $list->elements } ) {
         my $link = ref( $d->{link} ) eq 'ARRAY' ? $d->{link} : [ $d->{link} ];
         ( $d->{id} ) =
-          map { $_->{href} }
+          map  { $_->{href} }
           grep { $_->{rel} eq 'self' } @{$link};
         push @groups,
           {
@@ -273,7 +280,11 @@ __END__
 
     use WWW::Google::Contacts;
 
-    my $google = WWW::Google::Contacts->new( username => "your.username", password => "your.password" );
+    my $google = WWW::Google::Contacts->new(
+        username => "your.username",
+        password => "your.password",
+        protocol => "https",
+    );
 
     # Create a new contact
     my $contact = $google->new_contact;
@@ -321,10 +332,12 @@ B<NOTE> This new interface is still quite untested. Please report any bugs.
 
 =head1 CONSTRUCTOR
 
-=head2 new( username => .., password => .. )
+=head2 new( username => .., password => .. , protocol => ..)
 
 I<username> and I<password> are required arguments and must be valid Google credentials. If you do not have a Google account
 you can create one at L<https://www.google.com/accounts/NewAccount>.
+
+I<protocol> defaults to B<http>, but can optionally be set to B<https>.
 
 =head1 METHODS
 

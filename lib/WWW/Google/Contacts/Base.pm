@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Base;
 {
-    $WWW::Google::Contacts::Base::VERSION = '0.35';
+    $WWW::Google::Contacts::Base::VERSION = '0.36';
 }
 
 use Moose;
@@ -45,8 +45,8 @@ sub to_xml_hashref {
 
         next
           if defined $predicate
-              and not $self->$predicate
-              and not $attr->is_lazy;
+          and not $self->$predicate
+          and not $attr->is_lazy;
 
         my $name = $attr->name;
         my $val  = $self->$name;
