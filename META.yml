@@ -26,4 +26,4 @@ requires:
   XML::Simple: 0
 resources:
   repository: git://github.com/merixzon/www-google-contacts.git
-version: 0.36
+version: 0.37

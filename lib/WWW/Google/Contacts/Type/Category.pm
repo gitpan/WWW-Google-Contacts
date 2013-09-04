@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Category;
 {
-    $WWW::Google::Contacts::Type::Category::VERSION = '0.36';
+    $WWW::Google::Contacts::Type::Category::VERSION = '0.37';
 }
 
 use Moose;

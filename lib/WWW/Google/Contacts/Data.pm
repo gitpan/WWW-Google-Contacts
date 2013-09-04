@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Data;
 {
-    $WWW::Google::Contacts::Data::VERSION = '0.36';
+    $WWW::Google::Contacts::Data::VERSION = '0.37';
 }
 
 use strict;
@@ -14,7 +14,7 @@ sub decode_xml {
 
     my $xmls = XML::Simple->new;
     my $data = $xmls->XMLin(
-        encode_utf8($content),
+        decode_utf8($content),
         SuppressEmpty => undef,
         KeyAttr       => []
     );
@@ -26,7 +26,7 @@ sub encode_xml {
 
     my $xmls = XML::Simple->new;
     my $xml = $xmls->XMLout( $content, KeepRoot => 1 );
-    return $xml;
+    return encode_utf8($xml);
 }
 
 1;

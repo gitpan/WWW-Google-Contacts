@@ -1,6 +1,6 @@
 package WWW::Google::Contacts;
 {
-    $WWW::Google::Contacts::VERSION = '0.36';
+    $WWW::Google::Contacts::VERSION = '0.37';
 }
 
 # ABSTRACT: Google Contacts Data API
