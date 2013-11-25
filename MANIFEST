@@ -59,12 +59,14 @@ t/24.set_priority.t
 t/25.set_organization.t
 t/26.language.t
 t/27.relation.t
+t/33.photo.t
 t/50.types.t
 t/60.getting_user_defined.t
 t/61.utf8.t
 t/9999.deprecated.get_contact.t
 t/9999.deprecated.get_contacts.t
 t/9999.deprecated.get_groups.t
+t/data/photo.jpg
 t/release-pod-coverage.t
 t/release-pod-syntax.t
 t/type_relation.t

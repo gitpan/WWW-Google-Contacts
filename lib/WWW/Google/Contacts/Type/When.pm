@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::When;
 {
-    $WWW::Google::Contacts::Type::When::VERSION = '0.37';
+    $WWW::Google::Contacts::Type::When::VERSION = '0.38';
 }
 
 use Moose;

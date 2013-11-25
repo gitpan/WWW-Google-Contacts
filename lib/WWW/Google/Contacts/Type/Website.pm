@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Website;
 {
-    $WWW::Google::Contacts::Type::Website::VERSION = '0.37';
+    $WWW::Google::Contacts::Type::Website::VERSION = '0.38';
 }
 
 use Moose;

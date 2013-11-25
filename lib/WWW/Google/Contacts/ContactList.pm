@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::ContactList;
 {
-    $WWW::Google::Contacts::ContactList::VERSION = '0.37';
+    $WWW::Google::Contacts::ContactList::VERSION = '0.38';
 }
 
 use Moose;
@@ -33,7 +33,7 @@ __END__
     while ( my $cont = $contacts->next ) {
        print "You got a friend called " . $cont->full_name . "\n";
 
-       if ( $cont->photo->exist ) {
+       if ( $cont->photo->exists ) {
           print "And you got a photo of this friend\n";
           $contact->photo->to_file( "/tmp/photo.jpg" );
        }
@@ -51,9 +51,9 @@ B<WARNING> This is quite slow at the moment, at least if you've got a lot of con
 
 Given search criteria, will return all your contacts that matches critera.
 
- my @bastards = $contacts->search({
-    given_name => "George",
-    family_name => "Bush",
+ my @heroes = $contacts->search({
+    given_name => "Rutger",
+    family_name => "Hauer",
  });
 
 B<TODO>: Speed up. Make search arguments more flexible ( AND / OR / Regex / ... ). Also, doubt that search on random things like IM addresses work right now..

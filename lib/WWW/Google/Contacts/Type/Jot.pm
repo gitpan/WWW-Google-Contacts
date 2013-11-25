@@ -1,6 +1,6 @@
 package WWW::Google::Contacts::Type::Jot;
 {
-    $WWW::Google::Contacts::Type::Jot::VERSION = '0.37';
+    $WWW::Google::Contacts::Type::Jot::VERSION = '0.38';
 }
 
 use Moose;
